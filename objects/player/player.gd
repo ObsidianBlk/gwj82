@@ -29,6 +29,7 @@ var _sensitivity : Vector2 = Vector2(0.1, 0.1)
 # ------------------------------------------------------------------------------
 @onready var _faux_cam: Node3D = %FauxCam
 @onready var _gimble: Node3D = %Gimble
+@onready var _interactor: Interactor3D = %Interactor
 
 
 # ------------------------------------------------------------------------------
@@ -63,6 +64,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		elif _EventIs(event, PackedStringArray(["arcade_look_up", "arcade_look_down"])):
 			_mouse_look = false
 			_turn_input.x = Input.get_axis("arcade_look_down", "arcade_look_up")
+		elif event.is_action_pressed("arcade_interact"):
+			if _interactor != null:
+				_interactor.interact()
 
 func _physics_process(delta: float) -> void:
 	_UpdateLook(delta)
