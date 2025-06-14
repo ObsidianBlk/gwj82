@@ -15,6 +15,11 @@ run/main_scene="uid://ddlcxn2ckkyjf"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GamePool="*res://scripts/autos/game_pool.gd"
+Scoreboard="*res://scripts/autos/scoreboard.gd"
+
 [input]
 
 arcade_forward={
