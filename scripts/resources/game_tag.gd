@@ -11,7 +11,7 @@ class_name GameTag
 # ------------------------------------------------------------------------------
 # Variables
 # ------------------------------------------------------------------------------
-var _node_instance : Node2D = null
+var _node_instance : ArcadeGame = null
 
 
 # ------------------------------------------------------------------------------
@@ -36,11 +36,11 @@ func clear() -> void:
 		_node_instance.queue_free()
 		_node_instance = null
 
-func instance() -> Node2D:
+func instance() -> ArcadeGame:
 	if _node_instance == null and not game_path.is_empty():
 		var scene : Variant = load(game_path)
 		if scene is PackedScene:
 			var node : Node = scene.instantiate()
-			if node is Node2D:
+			if node is ArcadeGame:
 				_node_instance = node
 	return _node_instance

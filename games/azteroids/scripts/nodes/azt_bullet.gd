@@ -14,12 +14,19 @@ const RADIUS : float = 2.0
 # ------------------------------------------------------------------------------
 # Export Variables
 # ------------------------------------------------------------------------------
+@export var color : Color = Color.ANTIQUE_WHITE:	set=set_color
 @export var direction : Vector2 = Vector2.ONE:		set=set_direction
 @export var speed : float = 100.0:					set=set_speed
 
 # ------------------------------------------------------------------------------
 # Setters
 # ------------------------------------------------------------------------------
+func set_color(c : Color) -> void:
+	if color != c:
+		color = c
+		queue_redraw()
+
+
 func set_direction(d : Vector2) -> void:
 	d = d.normalized()
 	if not direction.is_equal_approx(d):
@@ -45,7 +52,7 @@ func _ready() -> void:
 	queue_redraw()
 
 func _draw() -> void:
-	draw_circle(Vector2.ZERO, RADIUS, Color.ANTIQUE_WHITE, true)
+	draw_circle(Vector2.ZERO, RADIUS, color, true, -1.0, true)
 
 func _physics_process(_delta: float) -> void:
 	velocity = direction * speed

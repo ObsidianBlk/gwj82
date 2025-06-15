@@ -24,6 +24,7 @@ const MAX_POINTS : int = 12
 # ------------------------------------------------------------------------------
 # Export Variables
 # ------------------------------------------------------------------------------
+@export var color : Color = Color.ANTIQUE_WHITE:						set=set_color
 @export_range(MIN_RADIUS, MAX_RADIUS) var radius : float = MIN_RADIUS:	set=set_radius
 @export_range(MIN_POINTS, MAX_POINTS) var points : int = MIN_POINTS:	set=set_points
 @export_range(-PI, PI) var angular_velocity : float = PI * 0.25
@@ -37,6 +38,11 @@ var _collision : CollisionPolygon2D = null
 # ------------------------------------------------------------------------------
 # Setters
 # ------------------------------------------------------------------------------
+func set_color(c : Color) -> void:
+	if color != c:
+		color = c
+		queue_redraw()
+
 func set_radius(r : float) -> void:
 	if r >= MIN_RADIUS and r <= MAX_RADIUS and not is_equal_approx(radius, r):
 		radius = r
@@ -69,7 +75,7 @@ func _draw() -> void:
 	if _collision.polygon.size() < MIN_POINTS: return
 	var dpoints = PackedVector2Array(_collision.polygon)
 	dpoints.append(dpoints[0])
-	draw_polyline(dpoints, Color.ANTIQUE_WHITE, 0.5)
+	draw_polyline(dpoints, color, 0.5, true)
 
 func _process(_delta: float) -> void:
 	if _build_queued:

@@ -48,13 +48,10 @@ func _ConnectToParent() -> void:
 	_AddUserSignal(_parent, SIGNAL_INTERACTED, _handle_interacted)
 
 func _handle_focus() -> void:
-	print(_parent.name, " in Focus")
 	focused.emit()
 
 func _handle_unfocus() -> void:
-	print(_parent.name, " Unfocused")
 	unfocused.emit()
 
 func _handle_interacted(payload : Dictionary = {}) -> void:
-	print(_parent.name, " Interacted")
 	interacted.emit(payload)

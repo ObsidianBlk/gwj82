@@ -1,0 +1,58 @@
+[gd_scene load_steps=7 format=3 uid="uid://c72bx1odfmy04"]
+
+[ext_resource type="Script" uid="uid://bqs3kqyv8vfj5" path="res://objects/arcade_machine/arcade_machine.gd" id="1_0dx0s"]
+[ext_resource type="PackedScene" uid="uid://krmmoio01xnt" path="res://assets/models/arcade_machine/arcade_machine.glb" id="1_vvhfv"]
+[ext_resource type="Script" uid="uid://c4nd5ojjjut2s" path="res://scripts/nodes/component_interactable.gd" id="4_eg3fq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ns7ev"]
+size = Vector3(0.9, 1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_eg3fq"]
+viewport_path = NodePath("GameViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eg3fq"]
+size = Vector3(0.047, 0.613, 0.769)
+
+[node name="ArcadeMachine" type="StaticBody3D"]
+script = ExtResource("1_0dx0s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.089, 0.5, 0)
+shape = SubResource("BoxShape3D_ns7ev")
+
+[node name="arcade_machine" parent="." instance=ExtResource("1_vvhfv")]
+
+[node name="GameScreen" type="Sprite3D" parent="."]
+transform = Transform3D(0.963073, -0.269239, 0, 0.269239, 0.963073, 0, 0, 0, 1, 0.0320907, 1.6814, 0)
+pixel_size = 0.0025
+axis = 0
+transparent = false
+double_sided = false
+texture_filter = 2
+texture = SubResource("ViewportTexture_eg3fq")
+
+[node name="ITriggerArea" type="Area3D" parent="GameScreen"]
+transform = Transform3D(1, 0.00033161, 0, -0.00033161, 1, 0, 0, 0, 1, -0.000195652, -0.000362873, 0)
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GameScreen/ITriggerArea"]
+shape = SubResource("BoxShape3D_eg3fq")
+
+[node name="ComponentInteractable" type="Node" parent="GameScreen/ITriggerArea"]
+script = ExtResource("4_eg3fq")
+metadata/_custom_type_script = "uid://c4nd5ojjjut2s"
+
+[node name="CameraTransform" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, -0.26892, 0.963163, 0, 0.963163, 0.26892, -1, 1.17549e-08, -4.21012e-08, 0.475, 1.827, 0)
+
+[node name="GameViewport" type="SubViewport" parent="."]
+unique_name_in_owner = true
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(320, 240)
+
+[connection signal="focused" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_focused"]
+[connection signal="interacted" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_interacted"]
+[connection signal="unfocused" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_unfocused"]
