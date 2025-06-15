@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://t1n8c6utr22k"]
+
+[ext_resource type="Script" uid="uid://ct3hojtvmxgxd" path="res://games/azteroids/azteroids.gd" id="1_c8xb2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c8xb2"]
+size = Vector2(332, 252)
+
+[node name="Azteroids" type="Node2D"]
+script = ExtResource("1_c8xb2")
+
+[node name="WorldBounds" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorldBounds"]
+shape = SubResource("RectangleShape2D_c8xb2")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="body_exited" from="WorldBounds" to="." method="_on_world_bounds_body_exited"]

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GameTag" load_steps=2 format=3 uid="uid://d027vs1k8twhk"]
+
+[ext_resource type="Script" uid="uid://dolxdho43feu8" path="res://scripts/resources/game_tag.gd" id="1_oi47c"]
+
+[resource]
+script = ExtResource("1_oi47c")
+game_name = &"Azteroids"
+game_path = "uid://t1n8c6utr22k"
+metadata/_custom_type_script = "uid://dolxdho43feu8"
