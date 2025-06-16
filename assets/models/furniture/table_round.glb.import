@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://fkbdd2rl26bs"
-path="res://.godot/imported/platform_steps.glb-a2088044466c0c8f4db9db6b3f56a2e4.scn"
+uid="uid://dso2oyjiughrk"
+path="res://.godot/imported/table_round.glb-6ff2f23322774ab8d8e98597863d1138.scn"
 
 [deps]
 
-source_file="res://assets/models/arcade_room/platform_steps.glb"
-dest_files=["res://.godot/imported/platform_steps.glb-a2088044466c0c8f4db9db6b3f56a2e4.scn"]
+source_file="res://assets/models/furniture/table_round.glb"
+dest_files=["res://.godot/imported/table_round.glb-6ff2f23322774ab8d8e98597863d1138.scn"]
 
 [params]
 

@@ -133,7 +133,8 @@ pixel_size = 0.0026
 billboard = 2
 texture_filter = 2
 sprite_frames = SubResource("SpriteFrames_4foeq")
-frame_progress = 0.201727
+frame = 13
+frame_progress = 0.00324697
 
 [node name="ScoreDrainer" type="Area3D" parent="."]
 unique_name_in_owner = true

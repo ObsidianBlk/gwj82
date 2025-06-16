@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8hsgnvn8ojy4"]
+
+[ext_resource type="PackedScene" uid="uid://co7f11ficaxov" path="res://assets/models/furniture/counter.glb" id="1_7dyce"]
+[ext_resource type="Material" uid="uid://b3n4hbuv2pgh0" path="res://assets/models/furniture/materials/tables_chairs_railing.material" id="2_rvi5e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ic6tc"]
+size = Vector3(5.83569, 1.88782, 0.5849)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kr7f5"]
+size = Vector3(2.50775, 1.88782, 0.316391)
+
+[node name="CounterTop" type="StaticBody3D"]
+
+[node name="counter" parent="." instance=ExtResource("1_7dyce")]
+
+[node name="CounterTop" parent="counter" index="0"]
+surface_material_override/0 = ExtResource("2_rvi5e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00622559, 0.443909, -6.40262)
+shape = SubResource("BoxShape3D_ic6tc")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.308197, 0.443909, -5.94997)
+shape = SubResource("BoxShape3D_kr7f5")
+
+[editable path="counter"]

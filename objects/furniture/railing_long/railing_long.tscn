@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://3p5fb1hpla76"]
+
+[ext_resource type="PackedScene" uid="uid://binv8w62tdcex" path="res://assets/models/furniture/railing_long.glb" id="1_1fqgj"]
+[ext_resource type="Material" uid="uid://b3n4hbuv2pgh0" path="res://assets/models/furniture/materials/tables_chairs_railing.material" id="2_duyuy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rpnmb"]
+size = Vector3(5.37453, 1.22607, 0.279968)
+
+[node name="RailingLong" type="StaticBody3D"]
+
+[node name="railing_long" parent="." instance=ExtResource("1_1fqgj")]
+
+[node name="Railing_Long" parent="railing_long" index="0"]
+surface_material_override/0 = ExtResource("2_duyuy")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0489731, 0.613525, 0.0017395)
+shape = SubResource("BoxShape3D_rpnmb")
+
+[editable path="railing_long"]

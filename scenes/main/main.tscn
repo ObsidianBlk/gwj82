@@ -4,7 +4,9 @@
 [ext_resource type="Script" uid="uid://cowixnabh7364" path="res://scenes/main/main.gd" id="1_k2fmo"]
 [ext_resource type="PackedScene" uid="uid://b2f3n64r86m32" path="res://scenes/arcade/arcade.tscn" id="2_6q06x"]
 [ext_resource type="Script" uid="uid://n3fxpg2pwuig" path="res://scripts/nodes/chase_camera_3D.gd" id="2_iuonh"]
-[ext_resource type="PackedScene" uid="uid://c72bx1odfmy04" path="res://objects/arcade_machine/arcade_machine.tscn" id="5_6q06x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l3cfh"]
+size = Vector3(3.93243, 1.74304, 2.31488)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_k2fmo")
@@ -12,10 +14,6 @@ script = ExtResource("1_k2fmo")
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="Arcade" parent="Environment" instance=ExtResource("2_6q06x")]
-
-[node name="ArcadeMachine" parent="Environment" instance=ExtResource("5_6q06x")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4, 0, -5.61377)
-game_name = &"Flippy Da Bird"
 
 [node name="Player" parent="Environment" instance=ExtResource("1_hyk8p")]
 unique_name_in_owner = true
@@ -25,3 +23,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.55097, 0, 0)
 script = ExtResource("2_iuonh")
 target_group = &"PlayerCamera"
 metadata/_custom_type_script = "uid://n3fxpg2pwuig"
+
+[node name="ExitArea" type="Area3D" parent="Environment"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/ExitArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0124207, 0.371521, 9.64053)
+shape = SubResource("BoxShape3D_l3cfh")
+
+[connection signal="body_entered" from="Environment/ExitArea" to="." method="_on_exit_area_body_entered"]

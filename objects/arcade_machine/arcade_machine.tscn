@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c72bx1odfmy04"]
+[gd_scene load_steps=8 format=3 uid="uid://c72bx1odfmy04"]
 
 [ext_resource type="Script" uid="uid://bqs3kqyv8vfj5" path="res://objects/arcade_machine/arcade_machine.gd" id="1_0dx0s"]
 [ext_resource type="PackedScene" uid="uid://krmmoio01xnt" path="res://assets/models/arcade_machine/arcade_machine.glb" id="1_vvhfv"]
+[ext_resource type="Material" uid="uid://dtre1raij415n" path="res://assets/models/arcade_machine/arcade_machine_basic.material" id="3_eg3fq"]
 [ext_resource type="Script" uid="uid://c4nd5ojjjut2s" path="res://scripts/nodes/component_interactable.gd" id="4_eg3fq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ns7ev"]
@@ -13,7 +14,7 @@ viewport_path = NodePath("GameViewport")
 [sub_resource type="BoxShape3D" id="BoxShape3D_eg3fq"]
 size = Vector3(0.047, 0.613, 0.769)
 
-[node name="ArcadeMachine" type="StaticBody3D"]
+[node name="ArcadeMachine" type="StaticBody3D" groups=["ArcadeMachine"]]
 script = ExtResource("1_0dx0s")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -21,10 +22,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.089, 0.5, 0)
 shape = SubResource("BoxShape3D_ns7ev")
 
 [node name="arcade_machine" parent="." instance=ExtResource("1_vvhfv")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="ArcadeMachine" parent="arcade_machine" index="0"]
+surface_material_override/0 = ExtResource("3_eg3fq")
 
 [node name="GameScreen" type="Sprite3D" parent="."]
-transform = Transform3D(0.963073, -0.269239, 0, 0.269239, 0.963073, 0, 0, 0, 1, 0.0320907, 1.6814, 0)
-pixel_size = 0.0025
+transform = Transform3D(0.963073, -0.269239, 0, 0.269239, 0.963073, 0, 0, 0, 1, -0.00685972, 1.67051, 0)
+pixel_size = 0.0024
 axis = 0
 transparent = false
 double_sided = false
@@ -56,3 +61,5 @@ size = Vector2i(320, 240)
 [connection signal="focused" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_focused"]
 [connection signal="interacted" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_interacted"]
 [connection signal="unfocused" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_unfocused"]
+
+[editable path="arcade_machine"]

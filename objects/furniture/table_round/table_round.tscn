@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5gwk4wtvwmy2"]
+
+[ext_resource type="PackedScene" uid="uid://dso2oyjiughrk" path="res://assets/models/furniture/table_round.glb" id="1_8uh0t"]
+[ext_resource type="Material" uid="uid://b3n4hbuv2pgh0" path="res://assets/models/furniture/materials/tables_chairs_railing.material" id="2_s0mnm"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_8uh0t"]
+height = 1.29785
+radius = 0.977051
+
+[node name="TableRound" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.652832, 0)
+shape = SubResource("CylinderShape3D_8uh0t")
+
+[node name="table_round" parent="." instance=ExtResource("1_8uh0t")]
+
+[node name="Table_Round" parent="table_round" index="0"]
+surface_material_override/0 = ExtResource("2_s0mnm")
+
+[editable path="table_round"]

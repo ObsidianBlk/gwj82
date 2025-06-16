@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://b1uyldpa2vnul"]
+
+[ext_resource type="PackedScene" uid="uid://ciq3urk76lk6g" path="res://assets/models/door/door_frame.glb" id="1_0i0ho"]
+[ext_resource type="Script" uid="uid://b6tpjoq1311o6" path="res://objects/door/door.gd" id="1_58wfd"]
+[ext_resource type="Material" uid="uid://1rdevkd2kgme" path="res://assets/models/door/materials/doors.material" id="2_y765d"]
+[ext_resource type="PackedScene" uid="uid://b3h1tmdhe5u7u" path="res://assets/models/door/door.glb" id="3_y765d"]
+[ext_resource type="Script" uid="uid://c4nd5ojjjut2s" path="res://scripts/nodes/component_interactable.gd" id="5_00jqa"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ln868"]
+data = PackedVector3Array(0, 3, 0.0846, -2, 3, -0.0846, 0, 3, -0.0846, -1.9606, 2.9605, -0.0846, 0, 3, -0.0846, -2, 3, -0.0846, -1.9606, 2.9605, -0.0846, -0.0395, 2.9605, -0.0846, 0, 3, -0.0846, 0, 3, 0.0846, -2, 3, 0.0846, -2, 3, -0.0846, -0.0395, 2.9605, 0.0846, -2, 3, 0.0846, 0, 3, 0.0846, -0.0395, 2.9605, 0.0846, -1.9606, 2.9605, 0.0846, -2, 3, 0.0846, 0, 3, 0.0846, 0, 0, -0.0846, 0, 0, 0.0846, -0.0395, 0, 0.0846, 0, 3, 0.0846, 0, 0, 0.0846, -0.0395, 0, 0.0846, -0.0395, 2.9605, 0.0846, 0, 3, 0.0846, 0, 3, 0.0846, 0, 3, -0.0846, 0, 0, -0.0846, -0.0395, 2.9605, -0.0846, 0, 0, -0.0846, 0, 3, -0.0846, -0.0395, 2.9605, -0.0846, -0.0395, 0, -0.0846, 0, 0, -0.0846, -2, 3, 0.0846, -2, 0, -0.0846, -2, 3, -0.0846, -1.9606, 0, -0.0846, -2, 3, -0.0846, -2, 0, -0.0846, -1.9606, 0, -0.0846, -1.9606, 2.9605, -0.0846, -2, 3, -0.0846, -2, 3, 0.0846, -2, 0, 0.0846, -2, 0, -0.0846, -1.9606, 2.9605, 0.0846, -2, 0, 0.0846, -2, 3, 0.0846, -1.9606, 2.9605, 0.0846, -1.9606, 0, 0.0846, -2, 0, 0.0846, -0.0395, 2.9605, 0.0846, -1.9606, 2.9605, -0.0846, -1.9606, 2.9605, 0.0846, -1.9606, 2.9605, 0.0846, -1.9606, 2.9605, -0.0846, -1.9606, 0, -0.0846, -1.9606, 2.9605, 0.0846, -1.9606, 0, -0.0846, -1.9606, 0, 0.0846, -0.0395, 2.9605, 0.0846, -0.0395, 2.9605, -0.0846, -1.9606, 2.9605, -0.0846, -0.0395, 2.9605, 0.0846, -0.0395, 0, -0.0846, -0.0395, 2.9605, -0.0846, -0.0395, 2.9605, 0.0846, -0.0395, 0, 0.0846, -0.0395, 0, -0.0846, -0.0395, 0, -0.0846, 0, 0, 0.0846, 0, 0, -0.0846, -0.0395, 0, -0.0846, -0.0395, 0, 0.0846, 0, 0, 0.0846, -1.9606, 0, 0.0846, -2, 0, -0.0846, -2, 0, 0.0846, -1.9606, 0, 0.0846, -1.9606, 0, -0.0846, -2, 0, -0.0846)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ln868"]
+size = Vector3(1.6669, 2.83307, 0.0973511)
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_58wfd")
+
+[node name="Frame" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Frame"]
+shape = SubResource("ConcavePolygonShape3D_ln868")
+
+[node name="door_frame" parent="Frame" instance=ExtResource("1_0i0ho")]
+
+[node name="Door_Frame" parent="Frame/door_frame" index="0"]
+surface_material_override/0 = ExtResource("2_y765d")
+
+[node name="Door" type="CharacterBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0498807, 0, 0.0562317)
+collision_layer = 17
+
+[node name="door_mesh" parent="Door" instance=ExtResource("3_y765d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0498807, 0, -0.0562317)
+
+[node name="Door" parent="Door/door_mesh" index="0"]
+surface_material_override/0 = ExtResource("2_y765d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.958237, 1.4498, -0.033905)
+shape = SubResource("BoxShape3D_ln868")
+
+[node name="ComponentInteractable" type="Node" parent="Door"]
+script = ExtResource("5_00jqa")
+metadata/_custom_type_script = "uid://c4nd5ojjjut2s"
+
+[connection signal="interacted" from="Door/ComponentInteractable" to="." method="_on_component_interactable_interacted"]
+
+[editable path="Frame/door_frame"]
+[editable path="Door/door_mesh"]
