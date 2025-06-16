@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://djwt7m340mapi"]
+
+[ext_resource type="Script" uid="uid://dpkduv7clpiqq" path="res://games/flippy/objects/obstacle/obstacle.gd" id="1_i2dpj"]
+[ext_resource type="Texture2D" uid="uid://c5rvjwfsqvg27" path="res://games/flippy/assets/graphics/pole.png" id="2_r500f"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wb64l"]
+size = Vector2(8, 240)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3e0yq"]
+size = Vector2(8, 240)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2dpj"]
+resource_local_to_scene = true
+size = Vector2(8, 16)
+
+[node name="Obstacle" type="Node2D"]
+script = ExtResource("1_i2dpj")
+
+[node name="UpperPole" type="AnimatableBody2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 17
+sync_to_physics = false
+
+[node name="Sprite2D" type="Sprite2D" parent="UpperPole"]
+texture = ExtResource("2_r500f")
+offset = Vector2(0, -160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpperPole"]
+position = Vector2(0, -120)
+shape = SubResource("RectangleShape2D_wb64l")
+
+[node name="LowerPole" type="AnimatableBody2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 17
+sync_to_physics = false
+
+[node name="Sprite2D" type="Sprite2D" parent="LowerPole"]
+texture = ExtResource("2_r500f")
+offset = Vector2(0, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LowerPole"]
+position = Vector2(0, 120)
+shape = SubResource("RectangleShape2D_3e0yq")
+
+[node name="DetectZone" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 17
+
+[node name="DZCollision" type="CollisionShape2D" parent="DetectZone"]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_i2dpj")
+
+[connection signal="body_exited" from="DetectZone" to="." method="_on_detect_zone_body_exited"]

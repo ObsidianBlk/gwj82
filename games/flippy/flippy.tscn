@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddm0sqado87ub"]
+
+[ext_resource type="Script" uid="uid://cvnslfvp3iyew" path="res://games/flippy/flippy.gd" id="1_5h87t"]
+[ext_resource type="PackedScene" uid="uid://nv28d87ceem0" path="res://games/flippy/objects/bird/bird.tscn" id="2_q7lk2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f1o5u"]
+size = Vector2(320, 240)
+
+[node name="Flippy" type="Node2D"]
+script = ExtResource("1_5h87t")
+
+[node name="Bird" parent="." instance=ExtResource("2_q7lk2")]
+unique_name_in_owner = true
+position = Vector2(-120, -132)
+
+[node name="OContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="GameRegion" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameRegion"]
+shape = SubResource("RectangleShape2D_f1o5u")
+
+[connection signal="crashed" from="Bird" to="." method="_on_bird_crashed"]
+[connection signal="body_exited" from="GameRegion" to="." method="_on_game_region_body_exited"]
