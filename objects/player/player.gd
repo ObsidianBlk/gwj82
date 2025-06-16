@@ -11,7 +11,7 @@ const MAX_GIMBLE_ANGLE = deg_to_rad(70.0)
 # Export Variables
 # ------------------------------------------------------------------------------
 @export var active : bool = true:			set=set_active
-@export var walk_speed : float = 10.0
+@export var walk_speed : float = 7.0
 @export var turn_dps : float = 180.0
 
 
@@ -29,6 +29,7 @@ var _sensitivity : Vector2 = Vector2(0.1, 0.1)
 # ------------------------------------------------------------------------------
 @onready var _faux_cam: Node3D = %FauxCam
 @onready var _gimble: Node3D = %Gimble
+@onready var _step_cast: RayCast3D = $FauxCam/StepCast
 @onready var _interactor: Interactor3D = %Interactor
 
 

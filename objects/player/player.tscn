@@ -29,3 +29,8 @@ collision_mask = 16
 collide_with_areas = true
 script = ExtResource("2_g7ett")
 metadata/_custom_type_script = "uid://bqyrp7sv0w2aa"
+
+[node name="StepCast" type="RayCast3D" parent="FauxCam"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+target_position = Vector3(0, 0, -1)
+collision_mask = 128

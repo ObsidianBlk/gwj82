@@ -1,4 +1,5 @@
 extends Node3D
+class_name ArcadeMachine
 
 
 # ------------------------------------------------------------------------------
@@ -104,6 +105,9 @@ func _ReleaseFromMachine() -> void:
 # ------------------------------------------------------------------------------
 # Public Methods
 # ------------------------------------------------------------------------------
+func has_game() -> bool:
+	return _game != null
+
 func get_score() -> int:
 	if _game == null: return 0
 	return _game.get_score()

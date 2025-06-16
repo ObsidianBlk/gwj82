@@ -1,31 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddlcxn2ckkyjf"]
+[gd_scene load_steps=6 format=3 uid="uid://ddlcxn2ckkyjf"]
 
 [ext_resource type="PackedScene" uid="uid://dmbfypogpt676" path="res://objects/player/player.tscn" id="1_hyk8p"]
 [ext_resource type="Script" uid="uid://cowixnabh7364" path="res://scenes/main/main.gd" id="1_k2fmo"]
+[ext_resource type="PackedScene" uid="uid://b2f3n64r86m32" path="res://scenes/arcade/arcade.tscn" id="2_6q06x"]
 [ext_resource type="Script" uid="uid://n3fxpg2pwuig" path="res://scripts/nodes/chase_camera_3D.gd" id="2_iuonh"]
-[ext_resource type="PackedScene" uid="uid://bemb41gwajlmm" path="res://objects/arcade_room/arcade_room.tscn" id="2_l3cfh"]
 [ext_resource type="PackedScene" uid="uid://c72bx1odfmy04" path="res://objects/arcade_machine/arcade_machine.tscn" id="5_6q06x"]
-
-[sub_resource type="Environment" id="Environment_iuonh"]
-background_mode = 1
-ambient_light_source = 2
-ambient_light_color = Color(1, 0.845, 0.38, 1)
-ambient_light_energy = 0.1
-tonemap_mode = 2
-glow_enabled = true
 
 [node name="Main" type="Node"]
 script = ExtResource("1_k2fmo")
 
 [node name="Environment" type="Node3D" parent="."]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
-environment = SubResource("Environment_iuonh")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(0.945302, -0.137278, 0.295902, 0, 0.907132, 0.420846, -0.326195, -0.397827, 0.857514, 0, 0, 0)
-
-[node name="ArcadeRoom" parent="Environment" instance=ExtResource("2_l3cfh")]
+[node name="Arcade" parent="Environment" instance=ExtResource("2_6q06x")]
 
 [node name="ArcadeMachine" parent="Environment" instance=ExtResource("5_6q06x")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4, 0, -5.61377)
@@ -33,6 +19,7 @@ game_name = &"Azteroids"
 
 [node name="Player" parent="Environment" instance=ExtResource("1_hyk8p")]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.55097, 0, 0)
 
 [node name="ChaseCamera3D" type="Camera3D" parent="Environment" groups=["SceneCamera"]]
 script = ExtResource("2_iuonh")
