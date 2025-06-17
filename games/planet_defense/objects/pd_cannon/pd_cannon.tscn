@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dn17r67gehegp"]
+
+[ext_resource type="Script" uid="uid://dfw36uxjob8w7" path="res://games/planet_defense/objects/pd_cannon/pd_cannon.gd" id="1_a7bnv"]
+[ext_resource type="Texture2D" uid="uid://d4i3xbvo0k215" path="res://games/planet_defense/assets/graphics/pd_cannon.png" id="1_medo7"]
+[ext_resource type="Script" uid="uid://dmuelv2hwxkd3" path="res://games/planet_defense/scripts/nodes/pd_hit_area.gd" id="2_a7bnv"]
+
+[node name="PDCannon" type="Node2D"]
+script = ExtResource("1_a7bnv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 3
+texture = ExtResource("1_medo7")
+offset = Vector2(0, -4)
+
+[node name="PDHitArea" type="Area2D" parent="."]
+script = ExtResource("2_a7bnv")
+metadata/_custom_type_script = "uid://dmuelv2hwxkd3"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PDHitArea"]
+polygon = PackedVector2Array(-2, -8, 2, -8, 4, -2, 4, 0, -4, 0, -4, -2)
+
+[connection signal="hit" from="PDHitArea" to="." method="_on_pd_hit_area_hit"]

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GameTag" load_steps=2 format=3 uid="uid://b2phd2wauc0qu"]
+
+[ext_resource type="Script" uid="uid://dolxdho43feu8" path="res://scripts/resources/game_tag.gd" id="1_q483e"]
+
+[resource]
+script = ExtResource("1_q483e")
+game_name = &"Planet Defense"
+game_path = "uid://dklwbd4ubdcch"
+metadata/_custom_type_script = "uid://dolxdho43feu8"

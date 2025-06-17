@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cxrj5jgwv4bgh"]
+
+[ext_resource type="Texture2D" uid="uid://4pb46omgsual" path="res://games/planet_defense/assets/graphics/lazer.png" id="1_1vhas"]
+[ext_resource type="Script" uid="uid://b031ikeqscw7g" path="res://games/planet_defense/objects/pd_cannon/pd_cannon_lazer/pd_cannon_lazer.gd" id="1_o1e64"]
+[ext_resource type="Script" uid="uid://dmuelv2hwxkd3" path="res://games/planet_defense/scripts/nodes/pd_hit_area.gd" id="3_1dkti"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o1e64"]
+size = Vector2(1, 4)
+
+[node name="PDCannonLazer" type="Node2D"]
+script = ExtResource("1_o1e64")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.583, 1.2, 0, 1)
+texture = ExtResource("1_1vhas")
+offset = Vector2(0, -2)
+
+[node name="HitArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("3_1dkti")
+metadata/_custom_type_script = "uid://dmuelv2hwxkd3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_o1e64")
+
+[connection signal="hit" from="HitArea" to="." method="_on_hit_area_hit"]

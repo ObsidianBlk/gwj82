@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3q6ac3ho878i"]
+
+[ext_resource type="Script" uid="uid://bu4dqrl36pmhk" path="res://games/planet_defense/objects/pd_invader/ps_inv_lazers/pd_inv_lazers.gd" id="1_ddo5u"]
+[ext_resource type="Texture2D" uid="uid://4pb46omgsual" path="res://games/planet_defense/assets/graphics/lazer.png" id="1_p11ic"]
+[ext_resource type="Script" uid="uid://dmuelv2hwxkd3" path="res://games/planet_defense/scripts/nodes/pd_hit_area.gd" id="3_cwrfl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p11ic"]
+size = Vector2(1, 4)
+
+[node name="PDInvLazers" type="Node2D"]
+script = ExtResource("1_ddo5u")
+
+[node name="LLazer" type="Sprite2D" parent="."]
+modulate = Color(1.2, 0, 0, 1)
+position = Vector2(-3.5, 0)
+texture = ExtResource("1_p11ic")
+offset = Vector2(0, 2)
+
+[node name="RLazer" type="Sprite2D" parent="."]
+modulate = Color(1.2, 0, 0, 1)
+position = Vector2(3.5, 0)
+texture = ExtResource("1_p11ic")
+offset = Vector2(0, 2)
+
+[node name="HitArea" type="Area2D" parent="."]
+script = ExtResource("3_cwrfl")
+metadata/_custom_type_script = "uid://dmuelv2hwxkd3"
+
+[node name="LCollision" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(-3.5, 2)
+shape = SubResource("RectangleShape2D_p11ic")
+
+[node name="RCollision" type="CollisionShape2D" parent="HitArea"]
+position = Vector2(3.5, 2)
+shape = SubResource("RectangleShape2D_p11ic")
+
+[connection signal="hit" from="HitArea" to="." method="_on_hit_area_hit"]
