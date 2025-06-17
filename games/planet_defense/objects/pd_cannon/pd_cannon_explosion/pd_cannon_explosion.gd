@@ -1,23 +1,21 @@
-extends Area2D
-class_name PDHitArea
+extends Node2D
+
 
 
 # ------------------------------------------------------------------------------
-# Signals
+# Onready Variables
 # ------------------------------------------------------------------------------
-signal hit()
+@onready var _particles: GPUParticles2D = %Particles
 
 
 # ------------------------------------------------------------------------------
 # Override Methods
 # ------------------------------------------------------------------------------
 func _ready() -> void:
-	area_entered.connect(_on_area_entered)
+	_particles.restart()
 
 # ------------------------------------------------------------------------------
 # Handler Methods
 # ------------------------------------------------------------------------------
-func _on_area_entered(area : Area2D) -> void:
-	if area is PDHitArea:
-		area.hit.emit()
-	hit.emit()
+func _on_particles_finished() -> void:
+	queue_free()

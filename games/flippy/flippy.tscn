@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddm0sqado87ub"]
+[gd_scene load_steps=5 format=3 uid="uid://ddm0sqado87ub"]
 
 [ext_resource type="Script" uid="uid://cvnslfvp3iyew" path="res://games/flippy/flippy.gd" id="1_5h87t"]
 [ext_resource type="PackedScene" uid="uid://nv28d87ceem0" path="res://games/flippy/objects/bird/bird.tscn" id="2_q7lk2"]
+[ext_resource type="PackedScene" uid="uid://ccnxjb54jrawa" path="res://objects/score_box/score_box.tscn" id="3_6gktk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1o5u"]
 size = Vector2(320, 240)
@@ -23,5 +24,24 @@ unique_name_in_owner = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameRegion"]
 shape = SubResource("RectangleShape2D_f1o5u")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+
+[node name="ScoreBox" parent="CanvasLayer/MarginContainer" instance=ExtResource("3_6gktk")]
+layout_mode = 2
+score_digits = 6
+color_title = Color(0, 0, 0, 1)
+color_value = Color(0.12718, 0.12718, 0.12718, 1)
+
+[connection signal="score_changed" from="." to="CanvasLayer/MarginContainer/ScoreBox" method="set_score"]
 [connection signal="crashed" from="Bird" to="." method="_on_bird_crashed"]
 [connection signal="body_exited" from="GameRegion" to="." method="_on_game_region_body_exited"]

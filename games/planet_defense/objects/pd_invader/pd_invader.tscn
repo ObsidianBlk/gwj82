@@ -15,13 +15,13 @@ script = ExtResource("1_jnpm0")
 texture_filter = 3
 texture = ExtResource("1_f4pj6")
 
-[node name="HitArea" type="Area2D" parent="."]
+[node name="Invader_HitArea" type="Area2D" parent="." groups=["Invader"]]
 collision_layer = 16
 script = ExtResource("2_12172")
 metadata/_custom_type_script = "uid://dmuelv2hwxkd3"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Invader_HitArea"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_12172")
 
-[connection signal="hit" from="HitArea" to="." method="_on_hit_area_hit"]
+[connection signal="hit" from="Invader_HitArea" to="." method="_on_hit_area_hit"]

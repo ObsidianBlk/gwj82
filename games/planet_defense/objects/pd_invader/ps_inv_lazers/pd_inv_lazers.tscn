@@ -22,16 +22,17 @@ position = Vector2(3.5, 0)
 texture = ExtResource("1_p11ic")
 offset = Vector2(0, 2)
 
-[node name="HitArea" type="Area2D" parent="."]
+[node name="InvLaz_HitArea" type="Area2D" parent="."]
+collision_layer = 0
 script = ExtResource("3_cwrfl")
 metadata/_custom_type_script = "uid://dmuelv2hwxkd3"
 
-[node name="LCollision" type="CollisionShape2D" parent="HitArea"]
+[node name="LCollision" type="CollisionShape2D" parent="InvLaz_HitArea"]
 position = Vector2(-3.5, 2)
 shape = SubResource("RectangleShape2D_p11ic")
 
-[node name="RCollision" type="CollisionShape2D" parent="HitArea"]
+[node name="RCollision" type="CollisionShape2D" parent="InvLaz_HitArea"]
 position = Vector2(3.5, 2)
 shape = SubResource("RectangleShape2D_p11ic")
 
-[connection signal="hit" from="HitArea" to="." method="_on_hit_area_hit"]
+[connection signal="hit" from="InvLaz_HitArea" to="." method="_on_hit_area_hit"]

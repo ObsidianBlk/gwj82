@@ -9,11 +9,12 @@ signal hit()
 # Constants
 # ------------------------------------------------------------------------------
 const LAZER_SCENE : PackedScene = preload("res://games/planet_defense/objects/pd_cannon/pd_cannon_lazer/pd_cannon_lazer.tscn")
+const EXPLOSION_SCENE : PackedScene = preload("res://games/planet_defense/objects/pd_cannon/pd_cannon_explosion/pd_cannon_explosion.tscn")
 
 # ZOE = (Z)one (O)f (E)ngagement
 const ZOE_BOUND : Vector2i = Vector2i(-128, 128)
 
-const ACCEL : float = 90.0
+const ACCEL : float = 120.0
 const MAX_SPEED : float = 80.0
 
 const FIRE_DELAY : float = 0.1
@@ -33,10 +34,23 @@ func _process(delta: float) -> void:
 		_fire_delay -= delta
 	
 	if is_equal_approx(_direction, 0.0):
-		_speed = lerpf(_speed, 0.0, 0.25 * delta)
+		_speed = lerpf(_speed, 0.0, 2.0 * delta)
 	else:
 		_speed = clampf(_speed + (_direction * ACCEL * delta), -MAX_SPEED, MAX_SPEED)
-	position.x += _speed * delta
+	position.x = clampf(position.x + (_speed * delta), ZOE_BOUND.x, ZOE_BOUND.y)
+	if is_equal_approx(position.x, ZOE_BOUND.x) or is_equal_approx(position.x, ZOE_BOUND.y):
+		_speed = 0.0
+
+# ------------------------------------------------------------------------------
+# Override Methods
+# ------------------------------------------------------------------------------
+func _Explode() -> void:
+	var parent : Node = get_parent()
+	if parent is Node2D:
+		var exp : Node2D = EXPLOSION_SCENE.instantiate()
+		exp.position = position
+		parent.add_child(exp)
+		queue_free()
 
 # ------------------------------------------------------------------------------
 # Public Methods
@@ -57,3 +71,4 @@ func fire() -> void:
 # ------------------------------------------------------------------------------
 func _on_pd_hit_area_hit() -> void:
 	hit.emit()
+	_Explode()

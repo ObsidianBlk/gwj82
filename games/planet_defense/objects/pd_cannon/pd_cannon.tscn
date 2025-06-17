@@ -12,11 +12,11 @@ texture_filter = 3
 texture = ExtResource("1_medo7")
 offset = Vector2(0, -4)
 
-[node name="PDHitArea" type="Area2D" parent="."]
+[node name="Cannon_HitArea" type="Area2D" parent="." groups=["Cannon"]]
 script = ExtResource("2_a7bnv")
 metadata/_custom_type_script = "uid://dmuelv2hwxkd3"
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PDHitArea"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Cannon_HitArea"]
 polygon = PackedVector2Array(-2, -8, 2, -8, 4, -2, 4, 0, -4, 0, -4, -2)
 
-[connection signal="hit" from="PDHitArea" to="." method="_on_pd_hit_area_hit"]
+[connection signal="hit" from="Cannon_HitArea" to="." method="_on_pd_hit_area_hit"]

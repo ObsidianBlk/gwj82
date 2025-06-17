@@ -9,6 +9,7 @@ signal scored()
 # Constants
 # ------------------------------------------------------------------------------
 const LAZER_SCENE : PackedScene = preload("res://games/planet_defense/objects/pd_invader/ps_inv_lazers/pd_inv_lazers.tscn")
+const EXPLOSION_SCENE : PackedScene = preload("res://games/planet_defense/objects/pd_invader/pd_inv_explosion/pd_inv_explosion.tscn")
 
 const GAME_WIDTH : int = 320
 const GAME_HEIGHT : int = 240
@@ -87,6 +88,14 @@ func _Shoot() -> void:
 		lz.position = position + Vector2(0.0, -3.0)
 		parent.add_child(lz)
 
+func _Explode() -> void:
+	var parent : Node = get_parent()
+	if parent is Node2D:
+		var exp : Node2D = EXPLOSION_SCENE.instantiate()
+		exp.position = position
+		parent.add_child(exp)
+		queue_free()
+
 # ------------------------------------------------------------------------------
 # Handler Methods
 # ------------------------------------------------------------------------------
@@ -105,3 +114,4 @@ func _on_timeout() -> void:
 
 func _on_hit_area_hit() -> void:
 	scored.emit()
+	_Explode()

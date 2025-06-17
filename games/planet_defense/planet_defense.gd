@@ -13,6 +13,12 @@ const SCORE_TO_INVADER_INCREASE : int = 10
 const INV_SPAWN_DELAY : float = 0.5
 const INV_HIT_SCORE : int = 1
 
+const CANNON_HIT_SCORE : int = -5
+const CANNON_SPAWN_DELAY : float = 1.0
+
+const GAME_WIDTH : Vector2 = Vector2(-160, 160)
+const GAME_HEIGHT : Vector2 = Vector2(-120, 120)
+
 # ------------------------------------------------------------------------------
 # Variables
 # ------------------------------------------------------------------------------
@@ -33,11 +39,18 @@ var _cannon : WeakRef = weakref(null)
 # Override Methods
 # ------------------------------------------------------------------------------
 func _ready() -> void:
-	pass
+	_Reset()
 	#_inv_container.add_child(INVADER_SCENE.instantiate())
 
 func _unhandled_input(event: InputEvent) -> void:
-	pass
+	if not active: return
+	var cannon : Node2D = _cannon.get_ref()
+	if cannon == null: return
+	
+	if event_one_of(event, [&"game_left", &"game_right"]):
+		cannon.move(Input.get_axis(&"game_left", &"game_right"))
+	if event.is_action_pressed("game_act_a"):
+		cannon.fire()
 
 func _process(delta: float) -> void:
 	if _inv_spawn_delay <= 0.0:
@@ -69,6 +82,7 @@ func _GetCannon(spawn_if_not_exist : bool = false) -> Node2D:
 	if cannon == null and spawn_if_not_exist and _cannon_container != null:
 		cannon = CANNON_SCENE.instantiate()
 		cannon.hit.connect(_on_cannon_hit)
+		cannon.position = Vector2(0.0, GAME_HEIGHT.y - 32)
 		_cannon = weakref(cannon)
 		_cannon_container.add_child(cannon)
 	return cannon
@@ -83,9 +97,13 @@ func _Reset() -> void:
 # ------------------------------------------------------------------------------
 func _on_scored() -> void:
 	_inv_score += 1
-	update_score(INV_HIT_SCORE)
+	if active:
+		update_score(INV_HIT_SCORE)
 	if _inv_score % SCORE_TO_INVADER_INCREASE == 0:
 		_inv_allowed += 1
 
 func _on_cannon_hit() -> void:
-	pass
+	if active:
+		update_score(CANNON_HIT_SCORE)
+	get_tree().create_timer(CANNON_SPAWN_DELAY).timeout.connect(_Reset, CONNECT_ONE_SHOT)
+	

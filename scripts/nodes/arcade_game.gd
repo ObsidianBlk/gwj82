@@ -30,6 +30,11 @@ func set_active(a : bool) -> void:
 # ------------------------------------------------------------------------------
 # Public Methods
 # ------------------------------------------------------------------------------
+func event_one_of(event : InputEvent, actions : Array[StringName]) -> bool:
+	for action : StringName in actions:
+		if event.is_action(action): return true
+	return false
+
 func get_score() -> int:
 	return _score
 

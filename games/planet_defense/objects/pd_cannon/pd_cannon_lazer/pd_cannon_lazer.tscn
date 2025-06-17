@@ -15,14 +15,14 @@ modulate = Color(0.583, 1.2, 0, 1)
 texture = ExtResource("1_1vhas")
 offset = Vector2(0, -2)
 
-[node name="HitArea" type="Area2D" parent="."]
-collision_layer = 16
+[node name="CanLaz_HitArea" type="Area2D" parent="."]
+collision_layer = 0
 collision_mask = 16
 script = ExtResource("3_1dkti")
 metadata/_custom_type_script = "uid://dmuelv2hwxkd3"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CanLaz_HitArea"]
 position = Vector2(0, -2)
 shape = SubResource("RectangleShape2D_o1e64")
 
-[connection signal="hit" from="HitArea" to="." method="_on_hit_area_hit"]
+[connection signal="hit" from="CanLaz_HitArea" to="." method="_on_hit_area_hit"]

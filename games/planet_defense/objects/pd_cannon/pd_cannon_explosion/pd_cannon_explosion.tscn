@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1beags4n0k7u"]
+
+[ext_resource type="Script" uid="uid://c7xtfdi6wjixx" path="res://games/planet_defense/objects/pd_cannon/pd_cannon_explosion/pd_cannon_explosion.gd" id="1_d3b0e"]
+
+[sub_resource type="Gradient" id="Gradient_j2df4"]
+offsets = PackedFloat32Array(0, 0.178516, 0.351101, 0.820561, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 0.49, 1, 0.49, 1, 0.906878, 0.903718, 7.70092e-07, 1, 0.2254, 0.46, 0.34661, 0.580392)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_d3b0e"]
+gradient = SubResource("Gradient_j2df4")
+
+[sub_resource type="Curve" id="Curve_j6nei"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.757439, 0), 0.0, 0.0, 0, 0, Vector2(1, 100), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_n32t4"]
+curve = SubResource("Curve_j6nei")
+
+[sub_resource type="Curve" id="Curve_2jkpw"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.252901, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gsfm8"]
+curve = SubResource("Curve_2jkpw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kkwpt"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 6.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 9, 0)
+damping_max = 1.0
+damping_curve = SubResource("CurveTexture_n32t4")
+scale_min = 0.1
+scale_curve = SubResource("CurveTexture_gsfm8")
+color_ramp = SubResource("GradientTexture1D_d3b0e")
+
+[node name="PDCannonExplosion" type="Node2D"]
+script = ExtResource("1_d3b0e")
+
+[node name="Particles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+emitting = false
+amount = 80
+one_shot = true
+explosiveness = 0.75
+process_material = SubResource("ParticleProcessMaterial_kkwpt")
+
+[connection signal="finished" from="Particles" to="." method="_on_particles_finished"]

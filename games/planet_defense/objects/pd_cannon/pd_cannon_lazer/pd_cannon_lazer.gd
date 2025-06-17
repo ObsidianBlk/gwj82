@@ -5,7 +5,7 @@ extends Node2D
 # Constants
 # ------------------------------------------------------------------------------
 const GAME_HEIGHT : float = -120
-const SPEED : float = 40.0
+const SPEED : float = 80.0
 
 # ------------------------------------------------------------------------------
 # Override Methods
