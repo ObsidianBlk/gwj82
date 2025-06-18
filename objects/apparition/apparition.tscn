@@ -144,3 +144,8 @@ metadata/_custom_type_script = "uid://d0xin571l5ik6"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="ScoreDrainer"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_gvsc7")
+
+[node name="NavAgent" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+
+[connection signal="target_reached" from="NavAgent" to="." method="_on_nav_agent_target_reached"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://b2f3n64r86m32"]
+[gd_scene load_steps=14 format=3 uid="uid://b2f3n64r86m32"]
 
 [ext_resource type="PackedScene" uid="uid://bemb41gwajlmm" path="res://objects/arcade_room/arcade_room.tscn" id="1_5rcsk"]
+[ext_resource type="PackedScene" uid="uid://cv8telumvb3io" path="res://objects/apparition/apparition.tscn" id="1_borfp"]
 [ext_resource type="PackedScene" uid="uid://b1uyldpa2vnul" path="res://objects/door/door.tscn" id="2_5ecvo"]
+[ext_resource type="PackedScene" uid="uid://bx2tmnmxwkluq" path="res://objects/poi/poi.tscn" id="2_51l8x"]
 [ext_resource type="PackedScene" uid="uid://ckfawyt3ib4sx" path="res://objects/platform/platform.tscn" id="2_n10rr"]
 [ext_resource type="PackedScene" uid="uid://c8hsgnvn8ojy4" path="res://objects/furniture/counter_top/counter_top.tscn" id="3_x4h3h"]
 [ext_resource type="PackedScene" uid="uid://3p5fb1hpla76" path="res://objects/furniture/railing_long/railing_long.tscn" id="4_0mcta"]
@@ -33,6 +35,43 @@ directional_shadow_mode = 0
 
 [node name="NavRegion" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_5rcsk")
+
+[node name="Apparition" parent="NavRegion" instance=ExtResource("1_borfp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.705, 0, -8.256)
+nav_group = &"Appartition"
+always_visible = true
+
+[node name="Apparition_POIs" type="Node3D" parent="NavRegion"]
+
+[node name="POI" parent="NavRegion/Apparition_POIs" groups=["Appartition"] instance=ExtResource("2_51l8x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.51518, 0, -4.68289)
+
+[node name="POI2" parent="NavRegion/Apparition_POIs" groups=["Appartition"] instance=ExtResource("2_51l8x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.24269, 0, 1.54144)
+
+[node name="POI3" parent="NavRegion/Apparition_POIs" groups=["Appartition"] instance=ExtResource("2_51l8x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.73084, 0, 0.179674)
+
+[node name="POI4" parent="NavRegion/Apparition_POIs" groups=["Appartition"] instance=ExtResource("2_51l8x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.22024, 0, -2.51114)
+
+[node name="POI5" parent="NavRegion/Apparition_POIs" groups=["Appartition"] instance=ExtResource("2_51l8x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.62896, 0, 3.01543)
+
+[node name="POI6" parent="NavRegion/Apparition_POIs" groups=["Appartition"] instance=ExtResource("2_51l8x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.90421, 0, -7.89001)
+
+[node name="POI7" parent="NavRegion/Apparition_POIs" groups=["Appartition"] instance=ExtResource("2_51l8x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.57989, 0, -7.74489)
+
+[node name="POI8" parent="NavRegion/Apparition_POIs" groups=["Appartition"] instance=ExtResource("2_51l8x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.87144, 0, -8.56452)
+
+[node name="POI9" parent="NavRegion/Apparition_POIs" groups=["Appartition"] instance=ExtResource("2_51l8x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.86734, 0.5, -2.414)
+
+[node name="POI10" parent="NavRegion/Apparition_POIs" groups=["Appartition"] instance=ExtResource("2_51l8x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.86734, 0.5, 2.34755)
 
 [node name="ArcadeRoom" parent="NavRegion" instance=ExtResource("1_5rcsk")]
 
