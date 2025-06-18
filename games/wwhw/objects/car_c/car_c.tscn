@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4b7uuuuy7sfg"]
+
+[ext_resource type="Script" uid="uid://cw6tkvhk3xi41" path="res://games/wwhw/scripts/car.gd" id="1_frnn1"]
+[ext_resource type="Texture2D" uid="uid://bxse7gtps3g18" path="res://games/wwhw/assets/graphics/cars/car_red_small_4.png" id="2_mynns"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_frnn1"]
+radius = 15.0
+height = 64.0
+
+[node name="CarC" type="Area2D"]
+script = ExtResource("1_frnn1")
+height = 70.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_mynns")
+offset = Vector2(0, -35)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -35)
+shape = SubResource("CapsuleShape2D_frnn1")

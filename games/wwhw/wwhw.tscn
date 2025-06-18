@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://do8builet2hfk"]
+
+[ext_resource type="Script" uid="uid://deya7lvle0qsi" path="res://games/wwhw/wwhw.gd" id="1_7d2ao"]
+[ext_resource type="Texture2D" uid="uid://bk4ukjnxidrco" path="res://games/wwhw/assets/graphics/wwhw_background.png" id="2_hu542"]
+[ext_resource type="PackedScene" uid="uid://dntbuby15c5jw" path="res://games/wwhw/cycle/cycle.tscn" id="3_ung8d"]
+
+[node name="wwhw" type="Node2D"]
+script = ExtResource("1_7d2ao")
+
+[node name="Backdrop" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Backdrop"]
+position = Vector2(0, -120)
+texture = ExtResource("2_hu542")
+offset = Vector2(0, -16)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Backdrop"]
+position = Vector2(0, -88)
+texture = ExtResource("2_hu542")
+offset = Vector2(0, -16)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Backdrop"]
+position = Vector2(0, -56)
+texture = ExtResource("2_hu542")
+offset = Vector2(0, -16)
+
+[node name="Sprite2D4" type="Sprite2D" parent="Backdrop"]
+position = Vector2(0, -24)
+texture = ExtResource("2_hu542")
+offset = Vector2(0, -16)
+
+[node name="Sprite2D5" type="Sprite2D" parent="Backdrop"]
+position = Vector2(0, 8)
+texture = ExtResource("2_hu542")
+offset = Vector2(0, -16)
+
+[node name="Sprite2D6" type="Sprite2D" parent="Backdrop"]
+position = Vector2(0, 40)
+texture = ExtResource("2_hu542")
+offset = Vector2(0, -16)
+
+[node name="Sprite2D7" type="Sprite2D" parent="Backdrop"]
+position = Vector2(0, 72)
+texture = ExtResource("2_hu542")
+offset = Vector2(0, -16)
+
+[node name="Sprite2D8" type="Sprite2D" parent="Backdrop"]
+position = Vector2(0, 104)
+texture = ExtResource("2_hu542")
+offset = Vector2(0, -16)
+
+[node name="Sprite2D9" type="Sprite2D" parent="Backdrop"]
+position = Vector2(0, 136)
+texture = ExtResource("2_hu542")
+offset = Vector2(0, -16)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Cycle" parent="." instance=ExtResource("3_ung8d")]
+position = Vector2(0, 60)
+
+[node name="LaneLeft" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-95, 0)
+
+[node name="LaneRight" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(95, 0)
+
+[node name="LaneCenter" type="Node2D" parent="."]
+unique_name_in_owner = true
