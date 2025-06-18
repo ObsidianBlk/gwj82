@@ -1,5 +1,5 @@
 @tool
-extends CharacterBody2D
+extends Area2D
 class_name AztBullet
 
 
@@ -8,6 +8,9 @@ class_name AztBullet
 # ------------------------------------------------------------------------------
 const COLLISION_LAYER : int = 2
 const COLLISION_MASK : int = 4
+
+const GAME_WIDTH : Vector2 = Vector2(-160, 160)
+const GAME_HEIGHT : Vector2 = Vector2(-120, 120)
 
 const RADIUS : float = 2.0
 
@@ -41,9 +44,9 @@ func set_speed(s : float) -> void:
 # Override Methods
 # ------------------------------------------------------------------------------
 func _ready() -> void:
+	body_entered.connect(_on_body_entered)
 	collision_layer = COLLISION_LAYER
 	collision_mask = COLLISION_MASK
-	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	
 	var collision : CollisionShape2D = CollisionShape2D.new()
 	add_child(collision)
@@ -54,6 +57,17 @@ func _ready() -> void:
 func _draw() -> void:
 	draw_circle(Vector2.ZERO, RADIUS, color, true, -1.0, true)
 
-func _physics_process(_delta: float) -> void:
-	velocity = direction * speed
-	move_and_slide()
+func _process(delta: float) -> void:
+	position += direction * speed * delta
+	if position.x + RADIUS < GAME_WIDTH.x or position.x - RADIUS > GAME_WIDTH.y:
+		queue_free()
+	if position.y + RADIUS < GAME_HEIGHT.x or position.y - RADIUS > GAME_HEIGHT.y:
+		queue_free()
+
+# ------------------------------------------------------------------------------
+# Handlers Methods
+# ------------------------------------------------------------------------------
+func _on_body_entered(body : Node2D) -> void:
+	if body is AztRoid:
+		body.break_roid()
+		queue_free()

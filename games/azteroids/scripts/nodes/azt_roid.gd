@@ -85,18 +85,17 @@ func _physics_process(delta: float) -> void:
 	rotation = wrapf(rotation + angular_velocity * delta, -PI, PI)
 	if not Engine.is_editor_hint():
 		move_and_slide()
-		_CheckCollision()
 
 # ------------------------------------------------------------------------------
 # Private Methods
 # ------------------------------------------------------------------------------
-func _CheckCollision() -> void:
-	var info : KinematicCollision2D = get_last_slide_collision()
-	if info != null:
-		var node : Node2D = info.get_collider()
-		if node is AztBullet:
-			node.queue_free()
-			broken.emit()
+#func _CheckCollision() -> void:
+	#var info : KinematicCollision2D = get_last_slide_collision()
+	#if info != null:
+		#var node : Node2D = info.get_collider()
+		#if node is AztBullet:
+			#node.queue_free()
+			#broken.emit()
 
 func _BuildRoid() -> void:
 	if _collision == null: return
@@ -115,3 +114,10 @@ func _BuildRoid() -> void:
 	
 	_collision.polygon = PackedVector2Array(roid_points)
 	queue_redraw()
+
+# ------------------------------------------------------------------------------
+# Public Methods
+# ------------------------------------------------------------------------------
+func break_roid() -> void:
+	queue_free()
+	broken.emit()
