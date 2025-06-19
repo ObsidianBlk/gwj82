@@ -36,7 +36,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0498807, 0, -0.0562317)
 [node name="Door" parent="Door/door_mesh" index="0"]
 surface_material_override/0 = ExtResource("2_y765d")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Door"]
+[node name="DoorCollision" type="CollisionShape3D" parent="Door"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.958237, 1.4498, -0.033905)
 shape = SubResource("BoxShape3D_ln868")
 

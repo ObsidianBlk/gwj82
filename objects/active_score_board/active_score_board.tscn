@@ -17,6 +17,7 @@ surface_material_override/0 = ExtResource("2_s6cdx")
 [node name="DisplaySprite" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0451578)
 pixel_size = 0.0043
+double_sided = false
 texture = SubResource("ViewportTexture_naxm3")
 
 [node name="DisplayViewport" type="SubViewport" parent="."]
