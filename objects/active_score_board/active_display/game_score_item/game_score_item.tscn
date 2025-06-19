@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://cknomkc2eexyy"]
+
+[ext_resource type="Script" uid="uid://d2l2vrlfvux3a" path="res://objects/active_score_board/active_display/game_score_item/game_score_item.gd" id="1_ef8xu"]
+
+[node name="GameScoreItem" type="HBoxContainer"]
+custom_minimum_size = Vector2(500, 143)
+offset_right = 500.0
+offset_bottom = 143.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_ef8xu")
+
+[node name="LBL_GameName" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "Game Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+text_overrun_behavior = 4
+
+[node name="LBL_Score" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(125, 0)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "000000"
+horizontal_alignment = 1
+vertical_alignment = 1

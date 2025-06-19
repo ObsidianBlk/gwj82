@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://7p7jy0ucbkut"]
+
+[ext_resource type="PackedScene" uid="uid://djdf1lg1pj4wt" path="res://assets/models/furniture/LargeDisplayBoard.glb" id="1_8dvwv"]
+[ext_resource type="Material" uid="uid://b3n4hbuv2pgh0" path="res://assets/models/furniture/materials/tables_chairs_railing.material" id="2_s6cdx"]
+[ext_resource type="PackedScene" uid="uid://dijjmmbihi3dl" path="res://objects/active_score_board/active_display/active_display.tscn" id="3_s6cdx"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_naxm3"]
+viewport_path = NodePath("DisplayViewport")
+
+[node name="ActiveScoreBoard" type="Node3D"]
+
+[node name="LargeDisplayBoard" parent="." instance=ExtResource("1_8dvwv")]
+
+[node name="LargeDisplayBoard" parent="LargeDisplayBoard" index="0"]
+surface_material_override/0 = ExtResource("2_s6cdx")
+
+[node name="DisplaySprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0451578)
+pixel_size = 0.0043
+texture = SubResource("ViewportTexture_naxm3")
+
+[node name="DisplayViewport" type="SubViewport" parent="."]
+size = Vector2i(1024, 430)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="DisplayViewport"]
+
+[node name="ActiveDisplay" parent="DisplayViewport/CanvasLayer" instance=ExtResource("3_s6cdx")]
+
+[editable path="LargeDisplayBoard"]

@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 GamePool="*res://scripts/autos/game_pool.gd"
 Scoreboard="*res://scripts/autos/scoreboard.gd"
+Clock24="*res://scripts/autos/clock24.gd"
 
 [input]
 

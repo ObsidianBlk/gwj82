@@ -17,7 +17,7 @@ const GROUP_ARCADE_MACHINE : StringName = &"ArcadeMachine"
 func _ready() -> void:
 	GamePool.load_roms()
 	GamePool.game_scan()
-	_PopulateGames.call_deferred()
+	_PrepareArcade.call_deferred()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -27,6 +27,14 @@ func _input(event: InputEvent) -> void:
 # ------------------------------------------------------------------------------
 # Private Methods
 # ------------------------------------------------------------------------------
+func _DisconnectArcadeMachines() -> void:
+	var nodes : Array[Node] = get_tree().get_nodes_in_group(GROUP_ARCADE_MACHINE)
+	for am : Node in nodes:
+		if am is ArcadeMachine and not am.game_name.is_empty():
+			if am.score_changed.is_connected(_on_arcade_machine_score_changed.bind(am.game_name)):
+				am.score_changed.disconnect(_on_arcade_machine_score_changed.bind(am.game_name))
+			am.game_name = &""
+
 func _PopulateGames() -> void:
 	var games : Array[StringName] = GamePool.get_games_list()
 	if games.size() <= 0: return
@@ -45,11 +53,26 @@ func _PopulateGames() -> void:
 		nodes.remove_at(nidx)
 		
 		am.game_name = games[gidx]
+		if not am.score_changed.is_connected(_on_arcade_machine_score_changed.bind(games[gidx])):
+			am.score_changed.connect(_on_arcade_machine_score_changed.bind(games[gidx]))
 		games.remove_at(gidx)
 		
 		if nodes.size() <= 0:
 			break
 
+func _PrepareArcade() -> void:
+	_DisconnectArcadeMachines()
+	_PopulateGames()
+
+
+# ------------------------------------------------------------------------------
+# Handler Methods
+# ------------------------------------------------------------------------------
 func _on_exit_area_body_entered(body: Node3D) -> void:
 	if _player != null and _player == body:
 		get_tree().quit()
+
+func _on_arcade_machine_score_changed(score : int, game_name : StringName) -> void:
+	var active_display : ActiveDisplay = ActiveDisplay.Get_Instance()
+	if active_display != null:
+		active_display.set_game_score(game_name, score)

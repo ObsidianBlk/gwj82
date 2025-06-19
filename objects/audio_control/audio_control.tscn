@@ -1,0 +1,115 @@
+[gd_scene load_steps=8 format=3 uid="uid://c05tjw8c2i13r"]
+
+[ext_resource type="Script" uid="uid://c4nd5ojjjut2s" path="res://scripts/nodes/component_interactable.gd" id="1_3awm3"]
+[ext_resource type="Script" uid="uid://ccinrffmknjn5" path="res://objects/audio_control/audio_control.gd" id="1_eb6fm"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ob142"]
+albedo_color = Color(0.549181, 0.549181, 0.549181, 1)
+metallic = 0.9
+roughness = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eb6fm"]
+albedo_color = Color(0.0500001, 1, 0, 1)
+emission_enabled = true
+emission = Color(0.0509804, 1, 0, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uuqdx"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_eb6fm"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eb6fm"]
+size = Vector3(0.25, 0.22, 0.1)
+
+[node name="AudioControl" type="Node3D"]
+script = ExtResource("1_eb6fm")
+
+[node name="FacePlate" type="CSGCombiner3D" parent="."]
+operation = 2
+
+[node name="Base" type="CSGBox3D" parent="FacePlate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05)
+size = Vector3(0.3, 0.5, 0.1)
+material = SubResource("StandardMaterial3D_ob142")
+
+[node name="Cut" type="CSGBox3D" parent="FacePlate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0734203, 0, 0.130863)
+operation = 2
+size = Vector3(0.1, 0.45, 0.2)
+
+[node name="IncreaseButton" type="CSGBox3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0668188, 0.171085, 0.101631)
+collision_layer = 16
+collision_mask = 16
+size = Vector3(0.1, 0.1, 0.05)
+material = SubResource("StandardMaterial3D_eb6fm")
+
+[node name="DecreaseButton" type="CSGBox3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.067, -0.17742, 0.102)
+use_collision = true
+collision_layer = 16
+collision_mask = 16
+size = Vector3(0.1, 0.1, 0.05)
+material = SubResource("StandardMaterial3D_uuqdx")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.074796, 0, 0.0907847)
+pixel_size = 0.0027
+double_sided = false
+texture = SubResource("ViewportTexture_eb6fm")
+
+[node name="IncreaseArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0407238, 0.141768, 0.0802314)
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="IncreaseArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0409888, -0.0107019, 0)
+shape = SubResource("BoxShape3D_eb6fm")
+
+[node name="IncreaseInteract" type="Node" parent="IncreaseArea"]
+script = ExtResource("1_3awm3")
+metadata/_custom_type_script = "uid://c4nd5ojjjut2s"
+
+[node name="DecreaseArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0407238, -0.115954, 0.0802314)
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DecreaseArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0409888, -0.0107019, 0)
+shape = SubResource("BoxShape3D_eb6fm")
+
+[node name="DecreaseInteract" type="Node" parent="DecreaseArea"]
+script = ExtResource("1_3awm3")
+metadata/_custom_type_script = "uid://c4nd5ojjjut2s"
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(32, 164)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]
+
+[node name="ProgressBar" type="ProgressBar" parent="SubViewport/CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+fill_mode = 3
+
+[connection signal="focused" from="IncreaseArea/IncreaseInteract" to="." method="_on_increase_interact_focused"]
+[connection signal="interacted" from="IncreaseArea/IncreaseInteract" to="." method="_on_increase_interact_interacted"]
+[connection signal="unfocused" from="IncreaseArea/IncreaseInteract" to="." method="_on_increase_interact_unfocused"]
+[connection signal="focused" from="DecreaseArea/DecreaseInteract" to="." method="_on_decrease_interact_focused"]
+[connection signal="interacted" from="DecreaseArea/DecreaseInteract" to="." method="_on_decrease_interact_interacted"]
+[connection signal="unfocused" from="DecreaseArea/DecreaseInteract" to="." method="_on_decrease_interact_unfocused"]

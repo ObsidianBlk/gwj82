@@ -67,15 +67,19 @@ func _SetCamTranGroup(grp_name : StringName) -> void:
 		_game_camera_target_group = grp_name
 		_camera_transform.add_to_group(grp_name)
 
+func _UnloadGame() -> void:
+	if _game_viewport == null or _game == null: return
+	_SetCamTranGroup(&"")
+	if _game.score_changed.is_connected(_on_game_score_changed):
+		_game.score_changed.disconnect(_on_game_score_changed)
+	_game_viewport.remove_child(_game)
+	_game = null
+	_on_game_score_changed.call_deferred(0)
+
 func _LoadGame() -> void:
 	if _game_viewport == null: return
+	_UnloadGame()
 	if GamePool.has_game(game_name):
-		if _game != null:
-			_SetCamTranGroup(&"")
-			if _game.score_changed.is_connected(_on_game_score_changed):
-				_game.score_changed.disconnect(_on_game_score_changed)
-			_game_viewport.remove_child(_game)
-			_game = null
 		var tag : GameTag = GamePool.get_game(game_name)
 		_game = tag.instance()
 		if _game != null:
@@ -84,6 +88,9 @@ func _LoadGame() -> void:
 				_game.score_changed.connect(_on_game_score_changed)
 			_game_viewport.add_child(_game)
 			_game.active = false
+			_on_game_score_changed.call_deferred(get_score())
+		else:
+			printerr("Failed to obtain game object for \"", game_name, "\".")
 	elif not game_name.is_empty():
 		_LoadGame.call_deferred()
 
@@ -97,7 +104,8 @@ func _GetSceneCamera() -> ChaseCamera3D:
 func _ReleaseFromMachine() -> void:
 	var cam : ChaseCamera3D = _GetSceneCamera()
 	if cam != null:
-		_game.active = false
+		if _game != null:
+			_game.active = false
 		if not cam.flow_completed.is_connected(_on_camera_flow_completed):
 			cam.flow_completed.connect(_on_camera_flow_completed.bind(cam), CONNECT_ONE_SHOT)
 		cam.flow_to(GROUP_PLAYER_CAMERA)
