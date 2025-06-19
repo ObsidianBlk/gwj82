@@ -33,6 +33,8 @@ func _DisconnectArcadeMachines() -> void:
 		if am is ArcadeMachine and not am.game_name.is_empty():
 			if am.score_changed.is_connected(_on_arcade_machine_score_changed.bind(am.game_name)):
 				am.score_changed.disconnect(_on_arcade_machine_score_changed.bind(am.game_name))
+			if am.focused.is_connected(_on_arcade_machine_focused.bind(am.game_name)):
+				am.focused.disconnect(_on_arcade_machine_focused.bind(am.game_name))
 			am.game_name = &""
 
 func _PopulateGames() -> void:
@@ -55,6 +57,8 @@ func _PopulateGames() -> void:
 		am.game_name = games[gidx]
 		if not am.score_changed.is_connected(_on_arcade_machine_score_changed.bind(games[gidx])):
 			am.score_changed.connect(_on_arcade_machine_score_changed.bind(games[gidx]))
+		if not am.focused.is_connected(_on_arcade_machine_focused.bind(games[gidx])):
+			am.focused.connect(_on_arcade_machine_focused.bind(games[gidx]))
 		games.remove_at(gidx)
 		
 		if nodes.size() <= 0:
@@ -76,3 +80,9 @@ func _on_arcade_machine_score_changed(score : int, game_name : StringName) -> vo
 	var active_display : ActiveDisplay = ActiveDisplay.Get_Instance()
 	if active_display != null:
 		active_display.set_game_score(game_name, score)
+
+func _on_arcade_machine_focused(active : bool, game_name : StringName) -> void:
+	var nodes : Array[Node] = get_tree().get_nodes_in_group(GROUP_ARCADE_MACHINE)
+	for node : Node in nodes:
+		if node is ArcadeMachine and node.game_name != game_name:
+			node.silence_mode(active)

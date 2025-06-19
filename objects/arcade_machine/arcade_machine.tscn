@@ -58,6 +58,24 @@ disable_3d = true
 handle_input_locally = false
 size = Vector2i(320, 240)
 
+[node name="ASP_Music" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+max_distance = 2.0
+bus = &"MachineMusic"
+
+[node name="ASP_SFX_01" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+max_distance = 3.0
+bus = &"MachineSFX"
+
+[node name="ASP_SFX_02" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+max_distance = 3.0
+bus = &"MachineSFX"
+
 [connection signal="focused" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_focused"]
 [connection signal="interacted" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_interacted"]
 [connection signal="unfocused" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_unfocused"]

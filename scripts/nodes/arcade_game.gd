@@ -7,6 +7,8 @@ class_name ArcadeGame
 # ------------------------------------------------------------------------------
 signal activation_changed()
 signal score_changed(score : int)
+signal play_music(stream : AudioStream)
+signal play_sfx(stream : AudioStream)
 
 
 # ------------------------------------------------------------------------------
@@ -34,6 +36,9 @@ func event_one_of(event : InputEvent, actions : Array[StringName]) -> bool:
 	for action : StringName in actions:
 		if event.is_action(action): return true
 	return false
+
+func prepare() -> void:
+	pass # To be updated by games
 
 func get_score() -> int:
 	return _score

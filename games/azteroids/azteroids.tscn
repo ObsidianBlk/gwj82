@@ -1,13 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://t1n8c6utr22k"]
+[gd_scene load_steps=8 format=3 uid="uid://t1n8c6utr22k"]
 
 [ext_resource type="Script" uid="uid://ct3hojtvmxgxd" path="res://games/azteroids/azteroids.gd" id="1_c8xb2"]
+[ext_resource type="AudioStream" uid="uid://coql1bfcprhjr" path="res://games/azteroids/assets/music/Juhani Junkala - Ending.ogg" id="2_hh3jp"]
 [ext_resource type="PackedScene" uid="uid://ccnxjb54jrawa" path="res://objects/score_box/score_box.tscn" id="2_pwwb3"]
+[ext_resource type="AudioStream" uid="uid://dt4ox3j45o1p4" path="res://games/azteroids/assets/sfx/laserShoot.wav" id="3_kysd8"]
+[ext_resource type="AudioStream" uid="uid://xgje2infdnkh" path="res://games/azteroids/assets/sfx/ship_explosion.wav" id="4_crmhe"]
+[ext_resource type="AudioStream" uid="uid://10vk6thfhqgm" path="res://games/azteroids/assets/sfx/roid_explosion.wav" id="5_due32"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c8xb2"]
 size = Vector2(332, 252)
 
 [node name="Azteroids" type="Node2D"]
 script = ExtResource("1_c8xb2")
+music = ExtResource("2_hh3jp")
+sfx_bullet = ExtResource("3_kysd8")
+sfx_ship_explode = ExtResource("4_crmhe")
+sfx_roid_explode = ExtResource("5_due32")
 
 [node name="GameContainer" type="Node2D" parent="."]
 unique_name_in_owner = true

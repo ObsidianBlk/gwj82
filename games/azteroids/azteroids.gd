@@ -18,6 +18,10 @@ const SCORE_CRASH : int = -5
 # Export Variables
 # ------------------------------------------------------------------------------
 @export var size : Vector2 = Vector2(320.0, 240.0)
+@export var music : AudioStream = null
+@export var sfx_bullet : AudioStream = null
+@export var sfx_ship_explode : AudioStream = null
+@export var sfx_roid_explode : AudioStream = null
 
 # ------------------------------------------------------------------------------
 # Variables
@@ -131,6 +135,12 @@ func _RepositionShip() -> void:
 	elif srect.position.y - shsize.y > hsize.y:
 		_ship.global_position.y = -(hsize.y + shsize.y)
 
+# ------------------------------------------------------------------------------
+# Public Methods
+# ------------------------------------------------------------------------------
+func prepare() -> void:
+	if music != null:
+		play_music.emit(music)
 
 # ------------------------------------------------------------------------------
 # Handler Methods
@@ -145,6 +155,8 @@ func _on_activation_changed() -> void:
 
 func _on_roid_broken(roid : AztRoid) -> void:
 	roid.queue_free()
+	if sfx_roid_explode != null:
+		play_sfx.emit(sfx_roid_explode)
 	update_score(SCORE_ROID)
 
 func _on_ship_fired(bullet_position : Vector2, direction : Vector2) -> void:
@@ -153,6 +165,8 @@ func _on_ship_fired(bullet_position : Vector2, direction : Vector2) -> void:
 	bullet.direction = direction
 	bullet.position = bullet_position
 	_game_container.add_child(bullet)
+	if sfx_bullet != null:
+		play_sfx.emit(sfx_bullet)
 
 func _on_ship_crashed() -> void:
 	if _ship == null or _game_container == null: return
@@ -163,6 +177,8 @@ func _on_ship_crashed() -> void:
 	_ship.queue_free()
 	_ship = null
 	_ship_spawn_delay = RESPAWN_DELAY
+	if sfx_ship_explode != null:
+		play_sfx.emit(sfx_ship_explode)
 	if active:
 		update_score(SCORE_CRASH)
 
