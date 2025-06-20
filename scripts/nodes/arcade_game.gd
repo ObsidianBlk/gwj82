@@ -8,6 +8,7 @@ class_name ArcadeGame
 signal activation_changed()
 signal score_changed(score : int)
 signal play_music(stream : AudioStream)
+signal play_ambient(stream : AudioStream)
 signal play_sfx(stream : AudioStream)
 
 
@@ -45,6 +46,10 @@ func get_score() -> int:
 
 func update_score(amount : int) -> void:
 	var old_score : int = _score
-	_score += amount
+	_score = max(_score + amount, 0)
 	if _score != old_score:
 		score_changed.emit(_score)
+
+func reset_score() -> void:
+	_score = 0
+	score_changed.emit(_score)

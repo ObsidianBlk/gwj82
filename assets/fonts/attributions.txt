@@ -2,3 +2,8 @@
 Font: Gamer
 Author: memesbruh03
 URL: https://www.dafont.com/gamer-2.font?l[]=10&l[]=1
+
+Font: E 1234
+Author: GGBotNet
+URL: https://ggbot.itch.io/e1234-font
+License: (SIL Open Font License, Version 1.1)[https://scripts.sil.org/OFL]

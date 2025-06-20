@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b2f3n64r86m32"]
+[gd_scene load_steps=24 format=3 uid="uid://b2f3n64r86m32"]
 
 [ext_resource type="PackedScene" uid="uid://bemb41gwajlmm" path="res://objects/arcade_room/arcade_room.tscn" id="1_5rcsk"]
 [ext_resource type="Script" uid="uid://bp6g2m0mep6g4" path="res://scenes/arcade/arcade.gd" id="1_5x3yn"]
@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b1uyldpa2vnul" path="res://objects/door/door.tscn" id="2_5ecvo"]
 [ext_resource type="PackedScene" uid="uid://bx2tmnmxwkluq" path="res://objects/poi/poi.tscn" id="2_51l8x"]
 [ext_resource type="PackedScene" uid="uid://ckfawyt3ib4sx" path="res://objects/platform/platform.tscn" id="2_n10rr"]
-[ext_resource type="Environment" uid="uid://d4jpooudbxhls" path="res://scenes/arcade/env_option_b.tres" id="2_rm3rg"]
+[ext_resource type="Environment" uid="uid://054oiqwxe3ep" path="res://scenes/arcade/env_option_a.tres" id="2_rm3rg"]
 [ext_resource type="PackedScene" uid="uid://c8hsgnvn8ojy4" path="res://objects/furniture/counter_top/counter_top.tscn" id="3_x4h3h"]
 [ext_resource type="PackedScene" uid="uid://3p5fb1hpla76" path="res://objects/furniture/railing_long/railing_long.tscn" id="4_0mcta"]
 [ext_resource type="PackedScene" uid="uid://cdr721ah1v86c" path="res://objects/furniture/railing_short/railing_short.tscn" id="5_0ncjw"]
@@ -17,8 +17,10 @@
 [ext_resource type="PackedScene" uid="uid://7p7jy0ucbkut" path="res://objects/active_score_board/active_score_board.tscn" id="12_nvrwf"]
 [ext_resource type="PackedScene" uid="uid://kd73f1u7f3" path="res://assets/models/arcade_room/arcade_room_roof.glb" id="15_2hd6b"]
 [ext_resource type="Material" uid="uid://bx6f5n8eme0ml" path="res://assets/models/arcade_room/materials/carpet.material" id="16_60f0b"]
+[ext_resource type="PackedScene" uid="uid://w8osc8q0q8hx" path="res://objects/furniture/digital_wall_clock/digital_wall_clock.tscn" id="16_mlkyp"]
 [ext_resource type="VoxelGIData" uid="uid://dmrfcjul0k6ly" path="res://scenes/arcade/arcade.voxels.res" id="17_2hd6b"]
 [ext_resource type="PackedScene" uid="uid://bdm43bq6jhr6s" path="res://objects/furniture/ceiling_light/ceiling_light.tscn" id="17_60f0b"]
+[ext_resource type="PackedScene" uid="uid://d2ka8h3lcp55d" path="res://objects/challenge_box/challenge_box.tscn" id="17_jddkn"]
 [ext_resource type="AudioStream" uid="uid://c4g5knciq4qqc" path="res://assets/audio/music/Cyberpunk Moonlight Sonata v2.ogg" id="19_ac8qg"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_5rcsk"]
@@ -39,7 +41,8 @@ navigation_mesh = SubResource("NavigationMesh_5rcsk")
 [node name="Apparition" parent="NavRegion" instance=ExtResource("1_borfp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.705, 0, -8.256)
 nav_group = &"Appartition"
-max_alpha = 0.55
+min_distance = 3.0
+max_alpha = 0.7
 
 [node name="Apparition_POIs" type="Node3D" parent="NavRegion"]
 
@@ -215,8 +218,27 @@ door_visible = false
 [node name="CounterTop" parent="Misc" instance=ExtResource("3_x4h3h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0074873, 0.0169001, -0.0109682)
 
-[node name="AudioControl" parent="Misc" instance=ExtResource("6_uenlr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.88727, 1.9502, -10.0231)
+[node name="Audio_Master" parent="Misc" instance=ExtResource("6_uenlr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.88727, 1.8, -10.0231)
+bus = &"Master"
+volume = 1.0
+
+[node name="Audio_Music" parent="Misc" instance=ExtResource("6_uenlr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.57059, 1.8, -10.0231)
+bus = &"Music"
+default_volume = 0.8
+volume = 0.8
+
+[node name="Audio_SFX" parent="Misc" instance=ExtResource("6_uenlr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.25967, 1.8, -10.0231)
+bus = &"SFX"
+volume = 1.0
+
+[node name="DigitalWallClock" parent="Misc" instance=ExtResource("16_mlkyp")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.2152, -9.99218)
+
+[node name="ChallengeBox" parent="Misc" instance=ExtResource("17_jddkn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.359144, 1.40458, -6.2144)
 
 [node name="arcade_room_roof" parent="." instance=ExtResource("15_2hd6b")]
 unique_name_in_owner = true

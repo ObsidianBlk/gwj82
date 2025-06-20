@@ -19,6 +19,12 @@ const CAR_SCENES : Array[PackedScene] = [
 ]
 
 # ------------------------------------------------------------------------------
+# Export Variables
+# ------------------------------------------------------------------------------
+@export var music_stream : AudioStream = null
+@export var ambient_stream : AudioStream = null
+
+# ------------------------------------------------------------------------------
 # Variables
 # ------------------------------------------------------------------------------
 var _cycle : WeakRef = weakref(null)
@@ -100,3 +106,12 @@ func _SpawnHazard() -> void:
 	
 	if has_cars.filter(func(oc : bool): return oc).size() <= 1:
 		pass
+
+# ------------------------------------------------------------------------------
+# Public Methods
+# ------------------------------------------------------------------------------
+func prepare() -> void:
+	if ambient_stream != null:
+		play_ambient.emit(ambient_stream)
+	if music_stream != null:
+		play_music.emit(music_stream)

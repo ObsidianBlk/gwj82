@@ -7,6 +7,9 @@ class_name ActiveDisplay
 # ------------------------------------------------------------------------------
 const GSI : PackedScene = preload("res://objects/active_score_board/active_display/game_score_item/game_score_item.tscn")
 
+const DISPLAY_SCOREBOARD : StringName = &"ScoreBoard"
+const DISPLAY_FINAL_GRADE : StringName = &"FinalGrade"
+
 # ------------------------------------------------------------------------------
 # Private Static Variables
 # ------------------------------------------------------------------------------
@@ -20,13 +23,17 @@ var _game_items : Dictionary[StringName, Control] = {}
 # ------------------------------------------------------------------------------
 # Onready Variables
 # ------------------------------------------------------------------------------
+@onready var _scoreboard: MarginContainer = %Scoreboard
+@onready var _final_grade: MarginContainer = %FinalGrade
+
 @onready var _score_list: HFlowContainer = %ScoreList
+@onready var _lbl_grade: Label = %LBL_Grade
 
 # ------------------------------------------------------------------------------
 # Override Methods
 # ------------------------------------------------------------------------------
 func _ready() -> void:
-	pass
+	display_screen(DISPLAY_SCOREBOARD)
 
 func _enter_tree() -> void:
 	if _instance == null:
@@ -59,3 +66,10 @@ func get_games() -> Array[StringName]:
 
 func has_game(game_name : StringName) -> bool:
 	return game_name in _game_items
+
+func set_grade(grade : String) -> void:
+	_lbl_grade.text = grade
+
+func display_screen(screen_name : StringName) -> void:
+	_scoreboard.visible = (screen_name == DISPLAY_SCOREBOARD)
+	_final_grade.visible = (screen_name == DISPLAY_FINAL_GRADE)

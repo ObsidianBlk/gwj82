@@ -50,11 +50,12 @@ func _Drain() -> void:
 	if _active_idx >= 0:
 		_draining = true
 		var am : ArcadeMachine = _available[_active_idx]
-		if am.has_game() and am.get_score() > 0:
-			am.update_score(-drain_amount)
-			if am.get_score() <= 0:
-				_active_idx = -1
-				drain_complete.emit()
+		if am.has_game():
+			if am.get_score() > 0 and not am.is_focused():
+				am.update_score(-drain_amount)
+				if am.get_score() <= 0:
+					_active_idx = -1
+					drain_complete.emit()
 		else:
 			am.update_display(randi_range(1, 2))
 		get_tree().create_timer(interval).timeout.connect(_Drain)
@@ -69,10 +70,10 @@ func _GetIdxByName(game_name : StringName) -> int:
 func _GetTargetIndex() -> int:
 	if _available.size() > 0:
 		var _gamed : Array[ArcadeMachine] = _available.filter(
-			func (am : ArcadeMachine): return am.has_game() and am.get_score() > 0
+			func (am : ArcadeMachine): return am.has_game() and am.is_focused() and am.get_score() > 0
 		)
 		var _emptied : Array[ArcadeMachine] = _available.filter(
-			func (am : ArcadeMachine): return not (am.has_game() and am.get_score() > 0)
+			func (am : ArcadeMachine): return not (am.has_game() and am.is_focused() and am.get_score() > 0)
 		)
 		
 		if _gamed.size() <= 0 or _emptied.size() <= 0:

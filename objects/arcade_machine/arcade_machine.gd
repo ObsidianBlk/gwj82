@@ -32,6 +32,7 @@ var _game_camera_target_group : StringName = &""
 
 var _silence_mode : bool = false
 var _volume_music : float = 1.0
+var _volume_ambient : float = 1.0
 var _volume_sfx : float = 1.0
 
 # ------------------------------------------------------------------------------
@@ -42,6 +43,7 @@ var _volume_sfx : float = 1.0
 @onready var _camera_transform: Marker3D = %CameraTransform
 
 @onready var _asp_music: AudioStreamPlayer3D = %ASP_Music
+@onready var _asp_ambient: AudioStreamPlayer3D = %ASP_Ambient
 @onready var _asp_sfx_01: AudioStreamPlayer3D = %ASP_SFX_01
 @onready var _asp_sfx_02: AudioStreamPlayer3D = %ASP_SFX_02
 @onready var _asp_static: AudioStreamPlayer3D = %ASP_Static
@@ -83,6 +85,28 @@ func _SetCamTranGroup(grp_name : StringName) -> void:
 		_game_camera_target_group = grp_name
 		_camera_transform.add_to_group(grp_name)
 
+func _DisplayVisible(vis : bool) -> void:
+	if _display == null: return
+	var color : Color = _display.off_color
+	if vis:
+		color.a = 1.0
+	else:
+		color.a = 0.0
+	_display.off_color = color
+
+func _ClearAudio(asp : AudioStreamPlayer3D) -> void:
+	if asp == null: return
+	if asp.stream != null:
+		asp.stop()
+		asp.stream = null
+
+func _ClearGameAudio() -> void:
+	_ClearAudio(_asp_music)
+	_ClearAudio(_asp_ambient)
+	_ClearAudio(_asp_sfx_01)
+	_ClearAudio(_asp_sfx_02)
+
+
 func _UnloadGame() -> void:
 	if _game_viewport == null or _game == null: return
 	_SetCamTranGroup(&"")
@@ -90,14 +114,15 @@ func _UnloadGame() -> void:
 		_game.score_changed.disconnect(_on_game_score_changed)
 	if _game.play_music.is_connected(_UpdateMusic):
 		_game.play_music.disconnect(_UpdateMusic)
+	if _game.play_ambient.is_connected(_UpdateAmbient):
+		_game.play_ambient.disconnect(_UpdateAmbient)
 	if _game.play_sfx.is_connected(_UpdateSFX):
 		_game.play_sfx.disconnect(_UpdateSFX)
 	_game_viewport.remove_child(_game)
 	_game = null
-	_display.visible = true
+	_ClearGameAudio()
+	_DisplayVisible(true)
 	update_display(0)
-	_UpdateMusic(null)
-	_UpdateSFX(null)
 	_on_game_score_changed.call_deferred(0)
 
 func _LoadGame() -> void:
@@ -112,12 +137,15 @@ func _LoadGame() -> void:
 				_game.score_changed.connect(_on_game_score_changed)
 			if not _game.play_music.is_connected(_UpdateMusic):
 				_game.play_music.connect(_UpdateMusic)
+			if not _game.play_ambient.is_connected(_UpdateAmbient):
+				_game.play_ambient.connect(_UpdateAmbient)
 			if not _game.play_sfx.is_connected(_UpdateSFX):
 				_game.play_sfx.connect(_UpdateSFX)
 			_game_viewport.add_child(_game)
+			_game.reset_score()
 			_game.prepare()
 			_game.active = false
-			_display.visible = false
+			_DisplayVisible(false)
 			_on_game_score_changed.call_deferred(get_score())
 		else:
 			printerr("Failed to obtain game object for \"", game_name, "\".")
@@ -141,22 +169,23 @@ func _ReleaseFromMachine() -> void:
 		cam.flow_to(GROUP_PLAYER_CAMERA)
 		focused.emit(false)
 
-func _TweenMusicTo(volume : float, duration : float) -> void:
+func _TweenAudioTo(asp : AudioStreamPlayer3D, volume : float, duration : float) -> void:
+	if asp == null: return
 	var tween : Tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
-	tween.tween_property(_asp_music, "volume_linear", volume, duration)
+	tween.tween_property(asp, "volume_linear", volume, duration)
 	await tween.finished
 	if is_equal_approx(volume, 0.0) and not _silence_mode:
-		_asp_music.stop()
-		_asp_music.stream = null
+		asp.stop()
+		asp.stream = null
 
 func _UpdateMusic(stream : AudioStream, volume : float = 1.0) -> void:
 	if _asp_music == null: return
 	if stream != _asp_music.stream:
 		if _asp_music.playing:
 			var duration : float = _asp_music.volume_linear * MUSIC_FADE_TIME
-			await _TweenMusicTo(0.0, duration)
+			await _TweenAudioTo(_asp_music, 0.0, duration)
 		if stream != null:
 			volume = clampf(volume, 0.0, 1.0)
 			_volume_music = volume
@@ -165,7 +194,24 @@ func _UpdateMusic(stream : AudioStream, volume : float = 1.0) -> void:
 				_asp_music.stream = stream
 				_asp_music.volume_linear = 0.0
 				_asp_music.play()
-				_TweenMusicTo(volume, duration)
+				_TweenAudioTo(_asp_music, volume, duration)
+
+func _UpdateAmbient(stream : AudioStream, volume : float = 1.0) -> void:
+	if _asp_ambient == null: return
+	if stream != _asp_ambient.stream:
+		if _asp_ambient.playing:
+			var duration : float = _asp_ambient.volume_linear * MUSIC_FADE_TIME
+			await _TweenAudioTo(_asp_ambient, 0.0, duration)
+		if stream != null:
+			volume = clampf(volume, 0.0, 1.0)
+			_volume_ambient = volume
+			if not _silence_mode:
+				var duration : float = volume * MUSIC_FADE_TIME
+				_asp_ambient.stream = stream
+				_asp_ambient.volume_linear = 0.0
+				_asp_ambient.play()
+				_TweenAudioTo(_asp_ambient, volume, duration)
+			
 
 func _AudioStreamProgress(asp : AudioStreamPlayer3D) -> float:
 	if asp.stream == null or not asp.playing: return 1.0
@@ -204,15 +250,20 @@ func silence_mode(enable : bool) -> void:
 	if enable != _silence_mode:
 		_silence_mode = enable
 		if _silence_mode:
-			_TweenMusicTo(0.0, 0.25)
+			_TweenAudioTo(_asp_music, 0.0, 0.25)
+			_TweenAudioTo(_asp_ambient, 0.0, 0.25)
 		else:
-			_TweenMusicTo(_volume_music, 0.25)
+			_TweenAudioTo(_asp_music, _volume_music, 0.25)
+			_TweenAudioTo(_asp_ambient, _volume_ambient, 0.25)
 
 # ------------------------------------------------------------------------------
 # Public Methods
 # ------------------------------------------------------------------------------
 func has_game() -> bool:
 	return _game != null
+
+func is_focused() -> bool:
+	return Input.mouse_mode == Input.MOUSE_MODE_HIDDEN and not _silence_mode
 
 func get_score() -> int:
 	if _game == null: return 0
@@ -248,10 +299,10 @@ func _on_game_score_changed(score : int) -> void:
 	score_changed.emit(score)
 
 func _on_component_interactable_focused() -> void:
-	print("Play ", game_name)
+	pass
 
 func _on_component_interactable_unfocused() -> void:
-	print("Ignored ", game_name)
+	pass
 
 func _on_component_interactable_interacted(payload: Dictionary) -> void:
 	var cam : ChaseCamera3D = _GetSceneCamera()

@@ -17,6 +17,7 @@ const SCORE_PADDING : int = 6
 # Onready Variables
 # ------------------------------------------------------------------------------
 @onready var _lbl_game_name: Label = %LBL_GameName
+@onready var _trect_banner: TextureRect = %TRECT_Banner
 @onready var _lbl_score: Label = %LBL_Score
 
 
@@ -47,9 +48,14 @@ func _ready() -> void:
 func _UpdateLabels() -> void:
 	if _lbl_game_name != null:
 		if game_name.is_empty():
+			_trect_banner.texture = null
 			_lbl_game_name.text = DEFAULT_GAME_NAME
 		else:
-			_lbl_game_name.text = game_name
+			_trect_banner.texture = GamePool.get_game_scoreboard_banner(game_name)
+			if _trect_banner.texture == null:
+				_lbl_game_name.text = game_name
+			else:
+				_lbl_game_name.text = ""
 	
 	if _lbl_score != null:
 		_lbl_score.text = ("%d"%[score]).pad_zeros(SCORE_PADDING)

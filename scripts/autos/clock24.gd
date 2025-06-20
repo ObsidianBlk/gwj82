@@ -48,6 +48,11 @@ func reset(hour : int = 0, minute : int = 0) -> void:
 	_dtime = 0.0
 	clock_ticked.emit(_hour, _minute)
 
+func reset_to_sys_clock() -> void:
+	var time : Dictionary = Time.get_time_dict_from_system()
+	reset(int(time.hour), int(time.minute))
+	_dtime = time.second
+
 func enable(e : bool = true) -> void:
 	_enabled = e
 

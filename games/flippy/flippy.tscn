@@ -24,9 +24,20 @@ unique_name_in_owner = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameRegion"]
 shape = SubResource("RectangleShape2D_f1o5u")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="BackdropLayer" type="CanvasLayer" parent="."]
+layer = -10
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+[node name="ColorRect" type="ColorRect" parent="BackdropLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.46, 0.703, 1, 1)
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="UILayer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -36,12 +47,12 @@ grow_horizontal = 0
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 16
 
-[node name="ScoreBox" parent="CanvasLayer/MarginContainer" instance=ExtResource("3_6gktk")]
+[node name="ScoreBox" parent="UILayer/MarginContainer" instance=ExtResource("3_6gktk")]
 layout_mode = 2
 score_digits = 6
 color_title = Color(0, 0, 0, 1)
 color_value = Color(0.12718, 0.12718, 0.12718, 1)
 
-[connection signal="score_changed" from="." to="CanvasLayer/MarginContainer/ScoreBox" method="set_score"]
+[connection signal="score_changed" from="." to="UILayer/MarginContainer/ScoreBox" method="set_score"]
 [connection signal="crashed" from="Bird" to="." method="_on_bird_crashed"]
 [connection signal="body_exited" from="GameRegion" to="." method="_on_game_region_body_exited"]

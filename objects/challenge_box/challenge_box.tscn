@@ -1,0 +1,150 @@
+[gd_scene load_steps=13 format=3 uid="uid://d2ka8h3lcp55d"]
+
+[ext_resource type="Script" uid="uid://d2l3rqkrsuhya" path="res://objects/challenge_box/challenge_box.gd" id="1_68fvv"]
+[ext_resource type="PackedScene" uid="uid://o68snp51c2sg" path="res://objects/challenge_box/letter_box/letter_box.tscn" id="2_trsgj"]
+[ext_resource type="PackedScene" uid="uid://bdt6pygq6kfyt" path="res://assets/models/furniture/ceiling_light_base.glb" id="2_x1u22"]
+[ext_resource type="Material" uid="uid://b3n4hbuv2pgh0" path="res://assets/models/furniture/materials/tables_chairs_railing.material" id="3_cdlvj"]
+[ext_resource type="PackedScene" uid="uid://742tk0fqw5ya" path="res://assets/models/furniture/ceiling_light_bulb.glb" id="4_68fvv"]
+[ext_resource type="Script" uid="uid://c4nd5ojjjut2s" path="res://scripts/nodes/component_interactable.gd" id="5_cdlvj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2mntw"]
+albedo_color = Color(0.54, 0.0864, 0.0864, 1)
+metallic = 0.5
+roughness = 0.44
+emission_enabled = true
+emission = Color(1, 0.54, 0.54, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_68fvv"]
+height = 0.46
+radius = 0.254
+
+[sub_resource type="Animation" id="Animation_2mntw"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button/ceiling_light_bulb:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.0870752, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0lc1m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button/ceiling_light_bulb:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.0870752, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_nsu21"]
+resource_name = "clicked"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button/ceiling_light_bulb:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.266667, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.0870752, 0), Vector3(0, 0.0347703, 0), Vector3(0, 0.0870752, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.266667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_Clicked"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g7oda"]
+_data = {
+&"RESET": SubResource("Animation_0lc1m"),
+&"clicked": SubResource("Animation_nsu21"),
+&"idle": SubResource("Animation_2mntw")
+}
+
+[node name="ChallengeBox" type="Node3D"]
+script = ExtResource("1_68fvv")
+
+[node name="LetterBoxes" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.755053, 0, 0)
+
+[node name="LetterBox_01" parent="LetterBoxes" instance=ExtResource("2_trsgj")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0, 0)
+char = "A"
+
+[node name="LetterBox_02" parent="LetterBoxes" instance=ExtResource("2_trsgj")]
+unique_name_in_owner = true
+char = "A"
+
+[node name="LetterBox_03" parent="LetterBoxes" instance=ExtResource("2_trsgj")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, 0)
+char = "A"
+
+[node name="Button" type="Node3D" parent="."]
+
+[node name="ceiling_light_base" parent="Button" instance=ExtResource("2_x1u22")]
+transform = Transform3D(1, 0, 0, 0, -0.666, 8.74228e-08, 0, -5.82236e-08, -1, 0, 0, 0)
+
+[node name="CeilingLight_Base" parent="Button/ceiling_light_base" index="0"]
+surface_material_override/0 = ExtResource("3_cdlvj")
+
+[node name="ceiling_light_bulb" parent="Button" instance=ExtResource("4_68fvv")]
+transform = Transform3D(1, 0, 0, 0, -0.432, 1.50996e-07, 0, -6.52302e-08, -1, 0, 0.0870752, 0)
+
+[node name="CeilingLight_Bulb" parent="Button/ceiling_light_bulb" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_2mntw")
+
+[node name="Area3D" type="Area3D" parent="Button"]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Button/Area3D"]
+shape = SubResource("CylinderShape3D_68fvv")
+
+[node name="ButtonInteractable" type="Node" parent="Button/Area3D"]
+script = ExtResource("5_cdlvj")
+metadata/_custom_type_script = "uid://c4nd5ojjjut2s"
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_g7oda")
+}
+autoplay = "idle"
+
+[connection signal="letter_changed" from="LetterBoxes/LetterBox_01" to="." method="_on_letterbox_changed"]
+[connection signal="letter_changed" from="LetterBoxes/LetterBox_02" to="." method="_on_letterbox_changed"]
+[connection signal="letter_changed" from="LetterBoxes/LetterBox_03" to="." method="_on_letterbox_changed"]
+[connection signal="focused" from="Button/Area3D/ButtonInteractable" to="." method="_on_button_interactable_focused"]
+[connection signal="interacted" from="Button/Area3D/ButtonInteractable" to="." method="_on_button_interactable_interacted"]
+[connection signal="unfocused" from="Button/Area3D/ButtonInteractable" to="." method="_on_button_interactable_unfocused"]
+
+[editable path="Button/ceiling_light_base"]
+[editable path="Button/ceiling_light_bulb"]

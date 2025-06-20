@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://o68snp51c2sg"]
+
+[ext_resource type="Script" uid="uid://c4nd5ojjjut2s" path="res://scripts/nodes/component_interactable.gd" id="1_d5s6y"]
+[ext_resource type="Script" uid="uid://c6i3gfu5odec" path="res://objects/challenge_box/letter_box/letter_box.gd" id="1_wj2t6"]
+[ext_resource type="PackedScene" uid="uid://be8nqrmoxrd5g" path="res://assets/models/furniture/letter_box.glb" id="2_d5s6y"]
+[ext_resource type="Material" uid="uid://b3n4hbuv2pgh0" path="res://assets/models/furniture/materials/tables_chairs_railing.material" id="3_wj2t6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wj2t6"]
+size = Vector3(0.3, 0.3, 0.5)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cbix2"]
+viewport_path = NodePath("SubViewport")
+
+[node name="LetterBox" type="Node3D"]
+script = ExtResource("1_wj2t6")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0.05)
+shape = SubResource("BoxShape3D_wj2t6")
+
+[node name="ComponentInteractable" type="Node" parent="Area3D"]
+script = ExtResource("1_d5s6y")
+metadata/_custom_type_script = "uid://c4nd5ojjjut2s"
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 0.172901, 0.0789309)
+double_sided = false
+texture = SubResource("ViewportTexture_cbix2")
+
+[node name="letter_box" parent="." instance=ExtResource("2_d5s6y")]
+
+[node name="LetterBox" parent="letter_box" index="0"]
+surface_material_override/0 = ExtResource("3_wj2t6")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(26, 40)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]
+
+[node name="Highlight" type="ColorRect" parent="SubViewport/CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Background" type="MarginContainer" parent="SubViewport/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 4
+
+[node name="BackgroundColor" type="ColorRect" parent="SubViewport/CanvasLayer/Background"]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="LBL_Letter" type="Label" parent="SubViewport/CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.890333, 0.86, 1)
+theme_override_font_sizes/font_size = 28
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="focused" from="Area3D/ComponentInteractable" to="." method="_on_component_interactable_focused"]
+[connection signal="interacted" from="Area3D/ComponentInteractable" to="." method="_on_component_interactable_interacted"]
+[connection signal="unfocused" from="Area3D/ComponentInteractable" to="." method="_on_component_interactable_unfocused"]
+
+[editable path="letter_box"]

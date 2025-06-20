@@ -47,6 +47,16 @@ func get_game(game_name : StringName) -> GameTag:
 		return _games[game_name]
 	return null
 
+func get_game_poster(game_name : StringName) -> Texture2D:
+	if game_name in _games:
+		return _games[game_name].poster
+	return null
+
+func get_game_scoreboard_banner(game_name : StringName) -> Texture2D:
+	if game_name in _games:
+		return _games[game_name].score_board_banner
+	return null
+
 func load_roms_from(base_path : String) -> void:
 	if DirAccess.dir_exists_absolute(base_path):
 		var files : PackedStringArray = DirAccess.get_files_at(base_path)

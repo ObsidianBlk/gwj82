@@ -1,0 +1,80 @@
+[gd_scene load_steps=6 format=3 uid="uid://w8osc8q0q8hx"]
+
+[ext_resource type="Script" uid="uid://lued1qijigi1" path="res://objects/furniture/digital_wall_clock/digital_wall_clock.gd" id="1_22hp3"]
+[ext_resource type="PackedScene" uid="uid://b3agwjascr4pm" path="res://assets/models/furniture/digital_wall_clock.glb" id="1_oyjul"]
+[ext_resource type="FontFile" uid="uid://cfbwvcgk5aavo" path="res://assets/fonts/E1234-Regular.otf" id="1_pmhtw"]
+[ext_resource type="Material" uid="uid://b3n4hbuv2pgh0" path="res://assets/models/furniture/materials/tables_chairs_railing.material" id="2_pmhtw"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_22hp3"]
+viewport_path = NodePath("SubViewport")
+
+[node name="DigitalWallClock" type="Node3D"]
+script = ExtResource("1_22hp3")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+size = Vector2i(256, 128)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.18, 0.0882, 0.0882, 1)
+
+[node name="LBL_BackLabel01" type="Label" parent="SubViewport/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.11, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_pmhtw")
+theme_override_font_sizes/font_size = 64
+text = "88888"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LBL_BackLabel02" type="Label" parent="SubViewport/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.11, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_pmhtw")
+theme_override_font_sizes/font_size = 64
+text = ":::::"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LBL_Time" type="Label" parent="SubViewport/CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1_pmhtw")
+theme_override_font_sizes/font_size = 64
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="digital_wall_clock" parent="." instance=ExtResource("1_oyjul")]
+
+[node name="DigitalWallClock" parent="digital_wall_clock" index="0"]
+surface_material_override/0 = ExtResource("2_pmhtw")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.105226)
+pixel_size = 0.0108
+double_sided = false
+texture = SubResource("ViewportTexture_22hp3")
+
+[editable path="digital_wall_clock"]

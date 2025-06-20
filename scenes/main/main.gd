@@ -5,6 +5,24 @@ extends Node
 # ------------------------------------------------------------------------------
 const GROUP_ARCADE_MACHINE : StringName = &"ArcadeMachine"
 
+const ACTIVE_GAME_SPM : float = 2.0
+const NORMAL_CLOCK_SPM : float = 60.0
+
+# ------------------------------------------------------------------------------
+# Export Variables
+# ------------------------------------------------------------------------------
+@export_range(0, 24) var start_hour : int = 0
+@export_range(0, 59) var start_minute : int = 0
+@export_range(0, 24) var end_hour : int = 6
+@export_range(0, 59) var end_minute : int = 0
+
+
+# ------------------------------------------------------------------------------
+# Variables
+# ------------------------------------------------------------------------------
+var _challenge_running : bool = false
+
+
 # ------------------------------------------------------------------------------
 # Onready Variables
 # ------------------------------------------------------------------------------
@@ -15,9 +33,18 @@ const GROUP_ARCADE_MACHINE : StringName = &"ArcadeMachine"
 # Override Methods
 # ------------------------------------------------------------------------------
 func _ready() -> void:
+	Relay.challenged.connect(_on_challenged)
+	Clock24.clock_ticked.connect(_on_clock_ticked)
+	if Settings.load() != OK:
+		Settings.request_reset()
+		Settings.save()
+	
 	GamePool.load_roms()
 	GamePool.game_scan()
 	_PrepareArcade.call_deferred()
+	Clock24.set_seconds_per_minute(NORMAL_CLOCK_SPM)
+	Clock24.reset_to_sys_clock()
+	Clock24.enable(true)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -64,10 +91,23 @@ func _PopulateGames() -> void:
 		if nodes.size() <= 0:
 			break
 
-func _PrepareArcade() -> void:
+func _PrepareArcade(start_challenge : bool = false) -> void:
 	_DisconnectArcadeMachines()
 	_PopulateGames()
 	_UpdateAudioFocus(false)
+	var ad : ActiveDisplay = ActiveDisplay.Get_Instance()
+	if ad != null:
+		ad.display_screen(ActiveDisplay.DISPLAY_SCOREBOARD)
+	
+	if start_challenge:
+		_challenge_running = true
+		Clock24.set_seconds_per_minute(ACTIVE_GAME_SPM)
+		Clock24.reset(start_hour, start_minute)
+		var app : Apparition = Apparition.Get_Instance()
+		if app != null:
+			app.set_action(Apparition.ACTION_APPARATE)
+			app.enabled = true
+
 
 func _TweenAudioBusVolume(bus_name : StringName, target_volume : float, duration : float) -> void:
 	var idx : int = AudioServer.get_bus_index(bus_name)
@@ -95,11 +135,68 @@ func _UpdateAudioFocus(machine_focus : bool) -> void:
 		_TweenAudioBusVolume(&"ArcadeMusic", 1.0, 0.25)
 		_TweenAudioBusVolume(&"ArcadeSFX", 1.0, 0.25)
 
+func _GetGradeFromScore(score : int) -> String:
+	if score >= 1000:
+		return "S"
+	elif score >= 800:
+		return "A"
+	elif score >= 600:
+		return "B"
+	elif score >= 400:
+		return "C"
+	elif score >= 200:
+		return "D"
+	return "F"
+
+func _CalculateFinalScore() -> void:
+	var count_zero_score : int = 0
+	var count_scored_games : int = 0
+	var score_total : int = 0
+	
+	var nodes : Array[Node] = get_tree().get_nodes_in_group(GROUP_ARCADE_MACHINE)
+	for node : Node in nodes:
+		if node is ArcadeMachine:
+			var am : ArcadeMachine = node
+			if am.has_game():
+				var score : int = am.get_score()
+				score_total += score
+				if score <= 0:
+					count_zero_score += 1
+				else:
+					count_scored_games += 1
+	
+	for _i : int in range(count_zero_score):
+		score_total = score_total / 2
+		
+	var ad : ActiveDisplay = ActiveDisplay.Get_Instance()
+	if ad != null:
+		ad.set_grade(_GetGradeFromScore(score_total))
+
 # ------------------------------------------------------------------------------
 # Handler Methods
 # ------------------------------------------------------------------------------
+func _on_challenged(initials : String) -> void:
+	if _challenge_running == false:
+		_PrepareArcade(true)
+
+func _on_clock_ticked(hour : int, minute : int) -> void:
+	if _challenge_running and hour == end_hour and minute == end_minute:
+		_challenge_running = false
+		var app : Apparition = Apparition.Get_Instance()
+		if app != null:
+			app.enabled = false
+		Clock24.set_seconds_per_minute(NORMAL_CLOCK_SPM)
+		Clock24.reset_to_sys_clock()
+		_CalculateFinalScore()
+		var ad : ActiveDisplay = ActiveDisplay.Get_Instance()
+		if ad != null:
+			ad.display_screen(ActiveDisplay.DISPLAY_FINAL_GRADE)
+		Relay.announce_challenge_ended()
+
 func _on_exit_area_body_entered(body: Node3D) -> void:
 	if _player != null and _player == body:
+		if Settings.is_dirty():
+			Settings.save()
 		get_tree().quit()
 
 func _on_arcade_machine_score_changed(score : int, game_name : StringName) -> void:

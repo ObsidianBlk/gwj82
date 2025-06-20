@@ -7,6 +7,8 @@ class_name GameTag
 # ------------------------------------------------------------------------------
 @export var game_name : StringName = "":						set=set_game_name
 @export_file("*.scn", "*.tscn") var game_path : String = "":	set=set_game_path
+@export var poster : Texture2D = null
+@export var score_board_banner : Texture2D = null
 
 # ------------------------------------------------------------------------------
 # Variables

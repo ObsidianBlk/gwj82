@@ -62,31 +62,44 @@ size = Vector2i(320, 240)
 
 [node name="Display" parent="GameViewport" instance=ExtResource("5_ns7ev")]
 unique_name_in_owner = true
+layer = 10
 
 [node name="ASP_Music" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
-max_distance = 2.0
+attenuation_model = 1
+max_distance = 3.0
 bus = &"MachineMusic"
+
+[node name="ASP_Ambient" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+attenuation_model = 1
+max_distance = 3.0
+bus = &"MachineSFX"
 
 [node name="ASP_SFX_01" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+attenuation_model = 1
 max_distance = 3.0
 bus = &"MachineSFX"
 
 [node name="ASP_SFX_02" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+attenuation_model = 1
 max_distance = 3.0
 bus = &"MachineSFX"
 
 [node name="ASP_Static" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 stream = ExtResource("6_mq7fu")
+attenuation_model = 1
 volume_db = -80.0
 autoplay = true
-max_distance = 15.0
+max_distance = 10.0
 bus = &"MachineSFX"
 
 [connection signal="focused" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_focused"]

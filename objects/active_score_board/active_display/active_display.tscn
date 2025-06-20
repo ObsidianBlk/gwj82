@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dijjmmbihi3dl"]
+[gd_scene load_steps=3 format=3 uid="uid://dijjmmbihi3dl"]
 
 [ext_resource type="Script" uid="uid://cuch8wpqvupp1" path="res://objects/active_score_board/active_display/active_display.gd" id="1_b5cya"]
+[ext_resource type="FontFile" uid="uid://bona4bnoq8vdk" path="res://assets/fonts/JVNE Wopper'83.ttf" id="2_4l0h7"]
 
-[node name="ActiveDisplay" type="VBoxContainer"]
+[node name="ActiveDisplay" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -10,13 +11,55 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_b5cya")
 
-[node name="ScoreList" type="HFlowContainer" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Scoreboard" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBC" type="VBoxContainer" parent="Scoreboard"]
+layout_mode = 2
+
+[node name="ScoreList" type="HFlowContainer" parent="Scoreboard/VBC"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="Scoreboard/VBC"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Scoreboard/VBC/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 64
 text = "Hello you DWEEB!"
+
+[node name="FinalGrade" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/margin_top = 24
+
+[node name="VBC" type="VBoxContainer" parent="FinalGrade"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="FinalGrade/VBC"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_4l0h7")
+theme_override_font_sizes/font_size = 48
+text = "Challenge Grade"
+horizontal_alignment = 1
+
+[node name="LBL_Grade" type="Label" parent="FinalGrade/VBC"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 176
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1

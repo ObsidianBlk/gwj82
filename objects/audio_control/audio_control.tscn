@@ -9,12 +9,14 @@ metallic = 0.9
 roughness = 0.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eb6fm"]
+resource_local_to_scene = true
 albedo_color = Color(0.0500001, 1, 0, 1)
 emission_enabled = true
 emission = Color(0.0509804, 1, 0, 1)
 emission_energy_multiplier = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uuqdx"]
+resource_local_to_scene = true
 albedo_color = Color(1, 0, 0, 1)
 emission_enabled = true
 emission = Color(1, 0, 0, 1)

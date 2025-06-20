@@ -1,13 +1,16 @@
-extends Node3D
+extends Node
 
 # ------------------------------------------------------------------------------
-# Onready Variables
+# Signals
 # ------------------------------------------------------------------------------
-@onready var _arcade_room_roof: Node3D = %arcade_room_roof
+signal challenged(initials : String)
+signal challenge_ended()
 
 # ------------------------------------------------------------------------------
-# Override Methods
+# Public Methods
 # ------------------------------------------------------------------------------
-func _ready() -> void:
-	# Yes, this is all.
-	_arcade_room_roof.visible = true
+func challenge(initials : String) -> void:
+	challenged.emit(initials)
+
+func announce_challenge_ended() -> void:
+	challenge_ended.emit()

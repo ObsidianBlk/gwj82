@@ -16,6 +16,7 @@ script = ExtResource("1_4mds6")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+modulate = Color(1, 0.43, 0.43, 1)
 texture_filter = 3
 texture = ExtResource("1_ggr4j")
 hframes = 2
