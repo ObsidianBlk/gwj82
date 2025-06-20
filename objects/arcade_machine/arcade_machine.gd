@@ -16,6 +16,9 @@ const GROUP_PLAYER_CAMERA : StringName = &"PlayerCamera"
 
 const MUSIC_FADE_TIME : float = 0.5
 
+const AUDIO_STATIC_RANGE : float = 80.0
+const AUDIO_STATIC_MIN : float = -80.0
+
 # ------------------------------------------------------------------------------
 # Export Variables
 # ------------------------------------------------------------------------------
@@ -35,11 +38,13 @@ var _volume_sfx : float = 1.0
 # Onready Variables
 # ------------------------------------------------------------------------------
 @onready var _game_viewport: SubViewport = %GameViewport
+@onready var _display: CanvasLayer = %Display
 @onready var _camera_transform: Marker3D = %CameraTransform
 
 @onready var _asp_music: AudioStreamPlayer3D = %ASP_Music
 @onready var _asp_sfx_01: AudioStreamPlayer3D = %ASP_SFX_01
 @onready var _asp_sfx_02: AudioStreamPlayer3D = %ASP_SFX_02
+@onready var _asp_static: AudioStreamPlayer3D = %ASP_Static
 
 # ------------------------------------------------------------------------------
 # Setters
@@ -89,6 +94,8 @@ func _UnloadGame() -> void:
 		_game.play_sfx.disconnect(_UpdateSFX)
 	_game_viewport.remove_child(_game)
 	_game = null
+	_display.visible = true
+	update_display(0)
 	_UpdateMusic(null)
 	_UpdateSFX(null)
 	_on_game_score_changed.call_deferred(0)
@@ -110,6 +117,7 @@ func _LoadGame() -> void:
 			_game_viewport.add_child(_game)
 			_game.prepare()
 			_game.active = false
+			_display.visible = false
 			_on_game_score_changed.call_deferred(get_score())
 		else:
 			printerr("Failed to obtain game object for \"", game_name, "\".")
@@ -214,6 +222,25 @@ func update_score(amount : int) -> void:
 	if _game != null:
 		_game.update_score(amount)
 
+func update_display(intensity : int) -> void:
+	if _display == null: return
+	intensity = clampi(intensity, 0, 3)
+	match intensity:
+		0:
+			_display.max_static = 0.0
+			_display.scary_screen = -1
+		1:
+			_display.max_static = 0.5
+			_display.scary_screen = -1
+		2:
+			_display.max_static = 0.8
+			_display.min_static = 0.3
+			_display.scary_screen = -1
+		3:
+			_display.max_static = 1.0
+			_display.min_static = 0.35
+			_display.scary_screen = randi_range(0, 1)
+
 # ------------------------------------------------------------------------------
 # Handler Methods
 # ------------------------------------------------------------------------------
@@ -240,3 +267,8 @@ func _on_camera_flow_completed(camera : ChaseCamera3D) -> void:
 		_game.active = true
 	elif camera.target_group == GROUP_PLAYER_CAMERA:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _on_display_static_changed(level: float) -> void:
+	if _asp_static != null:
+		var volume_range : float = AUDIO_STATIC_RANGE * level
+		_asp_static.volume_db = AUDIO_STATIC_MIN + volume_range

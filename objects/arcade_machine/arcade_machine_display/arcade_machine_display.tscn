@@ -1,0 +1,183 @@
+[gd_scene load_steps=24 format=3 uid="uid://bbyl36tkg87i8"]
+
+[ext_resource type="Script" uid="uid://b56xn8kwao8rs" path="res://addons/OBSControlLibrary/AnimatedTextureRect/animated_texture_rect.gd" id="1_cxkk8"]
+[ext_resource type="Script" uid="uid://4tucabeta4iu" path="res://objects/arcade_machine/arcade_machine_display/arcade_machine_display.gd" id="1_jrxky"]
+[ext_resource type="Shader" uid="uid://dhm57du07fc58" path="res://objects/arcade_machine/arcade_machine_display/screen.gdshader" id="1_lfl07"]
+[ext_resource type="Texture2D" uid="uid://cnbulgvsifibl" path="res://assets/graphics/ScaryScreen_01.png" id="2_aob3v"]
+[ext_resource type="Texture2D" uid="uid://dpghvvfmcarwp" path="res://assets/graphics/ScaryScreen_02.png" id="3_aob3v"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jrxky"]
+atlas = ExtResource("2_aob3v")
+region = Rect2(0, 0, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pkm06"]
+atlas = ExtResource("2_aob3v")
+region = Rect2(320, 0, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_846nj"]
+atlas = ExtResource("2_aob3v")
+region = Rect2(640, 0, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghqtb"]
+atlas = ExtResource("2_aob3v")
+region = Rect2(960, 0, 320, 240)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1gidn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jrxky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pkm06")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_846nj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghqtb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gidn"]
+atlas = ExtResource("3_aob3v")
+region = Rect2(0, 0, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xgbfj"]
+atlas = ExtResource("3_aob3v")
+region = Rect2(320, 0, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wagcx"]
+atlas = ExtResource("3_aob3v")
+region = Rect2(640, 0, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_buowm"]
+atlas = ExtResource("3_aob3v")
+region = Rect2(960, 0, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnb1t"]
+atlas = ExtResource("3_aob3v")
+region = Rect2(1280, 0, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkh5b"]
+atlas = ExtResource("3_aob3v")
+region = Rect2(1600, 0, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3eox"]
+atlas = ExtResource("3_aob3v")
+region = Rect2(0, 240, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uy08c"]
+atlas = ExtResource("3_aob3v")
+region = Rect2(320, 240, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xidrx"]
+atlas = ExtResource("3_aob3v")
+region = Rect2(640, 240, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbpnp"]
+atlas = ExtResource("3_aob3v")
+region = Rect2(960, 240, 320, 240)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfo2p"]
+atlas = ExtResource("3_aob3v")
+region = Rect2(1280, 240, 320, 240)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5hbh2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1gidn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xgbfj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wagcx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_buowm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnb1t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkh5b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3eox")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uy08c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xidrx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbpnp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfo2p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a6q38"]
+resource_local_to_scene = true
+shader = ExtResource("1_lfl07")
+shader_parameter/primary_color = Color(0, 0, 0, 1)
+shader_parameter/static_alpha = 0.0
+
+[node name="ArcadeMachineDisplay" type="CanvasLayer"]
+script = ExtResource("1_jrxky")
+
+[node name="ScaryScreen_01" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_cxkk8")
+sprite_frames = SubResource("SpriteFrames_1gidn")
+frame = 2
+frame_progress = 0.964183
+auto_play = true
+stretch_mode = 0
+metadata/_custom_type_script = "uid://b56xn8kwao8rs"
+
+[node name="ScaryScreen_02" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cxkk8")
+sprite_frames = SubResource("SpriteFrames_5hbh2")
+frame = 9
+frame_progress = 0.939183
+auto_play = true
+stretch_mode = 0
+metadata/_custom_type_script = "uid://b56xn8kwao8rs"
+
+[node name="Screen" type="ColorRect" parent="."]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_a6q38")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

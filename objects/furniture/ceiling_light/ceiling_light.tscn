@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://bdm43bq6jhr6s"]
+
+[ext_resource type="Script" uid="uid://bvqhpkms2nuqk" path="res://objects/furniture/ceiling_light/ceiling_light.gd" id="1_q28ul"]
+[ext_resource type="PackedScene" uid="uid://bdt6pygq6kfyt" path="res://assets/models/furniture/ceiling_light_base.glb" id="1_rcxi6"]
+[ext_resource type="Material" uid="uid://b3n4hbuv2pgh0" path="res://assets/models/furniture/materials/tables_chairs_railing.material" id="2_rcxi6"]
+[ext_resource type="PackedScene" uid="uid://742tk0fqw5ya" path="res://assets/models/furniture/ceiling_light_bulb.glb" id="3_q28ul"]
+[ext_resource type="AudioStream" uid="uid://3k6w825b6n7h" path="res://assets/audio/sfx/fluorescent-light-hum.wav" id="5_f13kp"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rcxi6"]
+height = 10.0
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f13kp"]
+resource_local_to_scene = true
+albedo_color = Color(0.980392, 0.921569, 0.843137, 1)
+emission_enabled = true
+emission = Color(0.980392, 0.921569, 0.843137, 1)
+emission_energy_multiplier = 2.0
+
+[node name="CeilingLight" type="Area3D"]
+script = ExtResource("1_q28ul")
+light_energy = 6.0
+emission_energy = 2.0
+max_flicker_intensity = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5, 0)
+shape = SubResource("CylinderShape3D_rcxi6")
+
+[node name="ceiling_light_base" parent="." instance=ExtResource("1_rcxi6")]
+
+[node name="CeilingLight_Base" parent="ceiling_light_base" index="0"]
+surface_material_override/0 = ExtResource("2_rcxi6")
+
+[node name="SpotLight" type="SpotLight3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+light_color = Color(0.980392, 0.921569, 0.843137, 1)
+light_energy = 6.0
+distance_fade_begin = 5.0
+distance_fade_length = 3.0
+spot_range = 12.0
+spot_attenuation = 2.0
+spot_angle = 50.0
+spot_angle_attenuation = 0.222825
+
+[node name="ceiling_light_bulb" parent="." instance=ExtResource("3_q28ul")]
+
+[node name="CeilingLight_Bulb" parent="ceiling_light_bulb" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_f13kp")
+
+[node name="ASP" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_f13kp")
+attenuation_model = 2
+unit_size = 3.0
+autoplay = true
+max_distance = 12.0
+bus = &"ArcadeSFX"
+
+[editable path="ceiling_light_base"]
+[editable path="ceiling_light_bulb"]

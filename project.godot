@@ -22,6 +22,10 @@ GamePool="*res://scripts/autos/game_pool.gd"
 Scoreboard="*res://scripts/autos/scoreboard.gd"
 Clock24="*res://scripts/autos/clock24.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/OBSControlLibrary/plugin.cfg")
+
 [input]
 
 arcade_forward={
@@ -142,3 +146,4 @@ game_escape={
 [rendering]
 
 renderer/rendering_method="mobile"
+limits/opengl/max_lights_per_object=16

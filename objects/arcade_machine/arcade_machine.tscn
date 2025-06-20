@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c72bx1odfmy04"]
+[gd_scene load_steps=10 format=3 uid="uid://c72bx1odfmy04"]
 
 [ext_resource type="Script" uid="uid://bqs3kqyv8vfj5" path="res://objects/arcade_machine/arcade_machine.gd" id="1_0dx0s"]
 [ext_resource type="PackedScene" uid="uid://krmmoio01xnt" path="res://assets/models/arcade_machine/arcade_machine.glb" id="1_vvhfv"]
 [ext_resource type="Material" uid="uid://dtre1raij415n" path="res://assets/models/arcade_machine/arcade_machine_basic.material" id="3_eg3fq"]
 [ext_resource type="Script" uid="uid://c4nd5ojjjut2s" path="res://scripts/nodes/component_interactable.gd" id="4_eg3fq"]
+[ext_resource type="PackedScene" uid="uid://bbyl36tkg87i8" path="res://objects/arcade_machine/arcade_machine_display/arcade_machine_display.tscn" id="5_ns7ev"]
+[ext_resource type="AudioStream" uid="uid://cox4r8feyqbew" path="res://assets/audio/sfx/TVStatic.wav" id="6_mq7fu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ns7ev"]
 size = Vector3(0.9, 1, 1)
@@ -58,6 +60,9 @@ disable_3d = true
 handle_input_locally = false
 size = Vector2i(320, 240)
 
+[node name="Display" parent="GameViewport" instance=ExtResource("5_ns7ev")]
+unique_name_in_owner = true
+
 [node name="ASP_Music" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
@@ -76,8 +81,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
 max_distance = 3.0
 bus = &"MachineSFX"
 
+[node name="ASP_Static" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_mq7fu")
+volume_db = -80.0
+autoplay = true
+max_distance = 15.0
+bus = &"MachineSFX"
+
 [connection signal="focused" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_focused"]
 [connection signal="interacted" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_interacted"]
 [connection signal="unfocused" from="GameScreen/ITriggerArea/ComponentInteractable" to="." method="_on_component_interactable_unfocused"]
+[connection signal="static_changed" from="GameViewport/Display" to="." method="_on_display_static_changed"]
 
 [editable path="arcade_machine"]

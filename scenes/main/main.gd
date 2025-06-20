@@ -67,7 +67,33 @@ func _PopulateGames() -> void:
 func _PrepareArcade() -> void:
 	_DisconnectArcadeMachines()
 	_PopulateGames()
+	_UpdateAudioFocus(false)
 
+func _TweenAudioBusVolume(bus_name : StringName, target_volume : float, duration : float) -> void:
+	var idx : int = AudioServer.get_bus_index(bus_name)
+	if idx < 0: return
+	var cvol : float = AudioServer.get_bus_volume_linear(idx)
+	if is_equal_approx(cvol, target_volume): return
+	
+	var tween : Tween = create_tween()
+	tween.set_trans(Tween.TRANS_LINEAR)
+	tween.tween_method(
+		(func (v : float): AudioServer.set_bus_volume_linear(idx, v)),
+		cvol, target_volume,
+		duration
+	)
+
+func _UpdateAudioFocus(machine_focus : bool) -> void:
+	if machine_focus:
+		_TweenAudioBusVolume(&"MachineMusic", 1.0, 0.25)
+		_TweenAudioBusVolume(&"MachineSFX", 1.0, 0.25)
+		_TweenAudioBusVolume(&"ArcadeMusic", 0.25, 0.25)
+		_TweenAudioBusVolume(&"ArcadeSFX", 0.25, 0.25)
+	else:
+		_TweenAudioBusVolume(&"MachineMusic", 0.25, 0.25)
+		_TweenAudioBusVolume(&"MachineSFX", 0.25, 0.25)
+		_TweenAudioBusVolume(&"ArcadeMusic", 1.0, 0.25)
+		_TweenAudioBusVolume(&"ArcadeSFX", 1.0, 0.25)
 
 # ------------------------------------------------------------------------------
 # Handler Methods
@@ -86,3 +112,4 @@ func _on_arcade_machine_focused(active : bool, game_name : StringName) -> void:
 	for node : Node in nodes:
 		if node is ArcadeMachine and node.game_name != game_name:
 			node.silence_mode(active)
+	_UpdateAudioFocus(active)
