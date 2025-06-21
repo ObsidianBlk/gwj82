@@ -1,3 +1,4 @@
+@tool
 extends CharacterBody3D
 
 
@@ -13,6 +14,7 @@ const MAX_GIMBLE_ANGLE = deg_to_rad(70.0)
 @export var active : bool = true:			set=set_active
 @export var walk_speed : float = 7.0
 @export var turn_dps : float = 180.0
+@export_range(0.0, 360.0) var initial_facing : float = 0.0
 
 
 # ------------------------------------------------------------------------------
@@ -31,6 +33,7 @@ var _sensitivity : Vector2 = Vector2(0.1, 0.1)
 @onready var _gimble: Node3D = %Gimble
 @onready var _step_cast: RayCast3D = $FauxCam/StepCast
 @onready var _interactor: Interactor3D = %Interactor
+@onready var _viz: Node3D = %Viz
 
 
 # ------------------------------------------------------------------------------
@@ -45,7 +48,13 @@ func set_active(a : bool) -> void:
 # Override Methods
 # ------------------------------------------------------------------------------
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if active else Input.MOUSE_MODE_VISIBLE
+	if not Engine.is_editor_hint():
+		_viz.visible = false
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if active else Input.MOUSE_MODE_VISIBLE
+	_faux_cam.rotation.y = wrapf(
+		_faux_cam.rotation.y + deg_to_rad(initial_facing),
+		0.0, 2 * PI
+	)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED:
@@ -70,6 +79,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				_interactor.interact()
 
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint(): return
 	_UpdateLook(delta)
 	if _mouse_look:
 		_turn_input = Vector2.ZERO

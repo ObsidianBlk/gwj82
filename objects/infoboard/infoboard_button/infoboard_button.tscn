@@ -1,0 +1,125 @@
+[gd_scene load_steps=12 format=3 uid="uid://diytu8uurvnwb"]
+
+[ext_resource type="PackedScene" uid="uid://by8b14s21ph1i" path="res://assets/models/furniture/infoboard_button.glb" id="1_skb45"]
+[ext_resource type="Script" uid="uid://kypd7ljoq0gs" path="res://objects/infoboard/infoboard_button/infoboard_button.gd" id="1_uep4q"]
+[ext_resource type="Material" uid="uid://b3n4hbuv2pgh0" path="res://assets/models/furniture/materials/tables_chairs_railing.material" id="2_wpsf3"]
+[ext_resource type="Script" uid="uid://c4nd5ojjjut2s" path="res://scripts/nodes/component_interactable.gd" id="3_wpsf3"]
+[ext_resource type="AudioStream" uid="uid://d02cljkcvfc6f" path="res://assets/audio/sfx/soft_click.wav" id="5_xr44b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uep4q"]
+resource_local_to_scene = true
+albedo_color = Color(0.560455, 0.560454, 0.560454, 1)
+emission_enabled = true
+emission = Color(1, 0, 0.883333, 1)
+emission_energy_multiplier = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_skb45"]
+size = Vector3(0.138683, 0.11, 0.196165)
+
+[sub_resource type="Animation" id="Animation_0y5p0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("infoboard_button:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xr44b"]
+resource_name = "click"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("infoboard_button:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.015, 0, -0.02), Vector3(0, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_Clicked"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_uep4q"]
+resource_name = "idle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("infoboard_button:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iuyth"]
+_data = {
+&"RESET": SubResource("Animation_0y5p0"),
+&"click": SubResource("Animation_xr44b"),
+&"idle": SubResource("Animation_uep4q")
+}
+
+[node name="InfoboardButton" type="Node3D"]
+script = ExtResource("1_uep4q")
+
+[node name="infoboard_button" parent="." instance=ExtResource("1_skb45")]
+
+[node name="InfoBoard_Button" parent="infoboard_button" index="0"]
+surface_material_override/0 = ExtResource("2_wpsf3")
+surface_material_override/1 = SubResource("StandardMaterial3D_uep4q")
+
+[node name="ClickArea" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ClickArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0196587, 0, -0.0318003)
+shape = SubResource("BoxShape3D_skb45")
+
+[node name="ComponentInteractable" type="Node" parent="ClickArea"]
+script = ExtResource("3_wpsf3")
+metadata/_custom_type_script = "uid://c4nd5ojjjut2s"
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+&"": SubResource("AnimationLibrary_iuyth")
+}
+
+[node name="ASP_Click" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_xr44b")
+attenuation_model = 1
+max_distance = 10.0
+bus = &"ArcadeSFX"
+
+[connection signal="focused" from="ClickArea/ComponentInteractable" to="." method="_on_component_interactable_focused"]
+[connection signal="interacted" from="ClickArea/ComponentInteractable" to="." method="_on_component_interactable_interacted"]
+[connection signal="unfocused" from="ClickArea/ComponentInteractable" to="." method="_on_component_interactable_unfocused"]
+
+[editable path="infoboard_button"]

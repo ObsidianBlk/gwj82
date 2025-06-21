@@ -5,6 +5,7 @@ class_name WWHWCar
 # ------------------------------------------------------------------------------
 # Constants
 # ------------------------------------------------------------------------------
+const EXPLOSION_SCENE : PackedScene = preload("res://games/wwhw/objects/explosion/explosion.tscn")
 const BOUNDS : Vector2 = Vector2(-120, 120)
 
 # ------------------------------------------------------------------------------
@@ -31,7 +32,11 @@ func _process(delta: float) -> void:
 # ------------------------------------------------------------------------------
 func die(explode : bool = false) -> void:
 	if explode:
-		pass # TODO: Code explodey things here
+		var parent : Node = get_parent()
+		if parent is Node2D:
+			var exp : Node2D = EXPLOSION_SCENE.instantiate()
+			exp.position = position + Vector2(0.0, -10.0)
+			parent.add_child(exp)
 	queue_free()
 
 # ------------------------------------------------------------------------------

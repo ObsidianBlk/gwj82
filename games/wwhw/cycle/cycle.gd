@@ -9,6 +9,8 @@ signal crashed()
 # ------------------------------------------------------------------------------
 # Constants
 # ------------------------------------------------------------------------------
+const EXPLOSION_SCENE : PackedScene = preload("res://games/wwhw/objects/explosion/explosion.tscn")
+
 const BOUNDS : Vector2 = Vector2(-120, 120)
 const LANES : Array[float] = [-100.0, 0.0, 100.0]
 
@@ -94,7 +96,11 @@ func _TweenTo(dst : float) -> void:
 
 func _Die() -> void:
 	crashed.emit()
-	# Spawn an explosion?
+	var parent : Node = get_parent()
+	if parent is Node2D:
+		var exp : Node2D = EXPLOSION_SCENE.instantiate()
+		exp.position = position
+		parent.add_child(exp)
 	queue_free()
 
 # ------------------------------------------------------------------------------

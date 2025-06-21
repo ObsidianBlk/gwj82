@@ -34,3 +34,15 @@ metadata/_custom_type_script = "uid://bqyrp7sv0w2aa"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 target_position = Vector3(0, 0, -1)
 collision_mask = 128
+
+[node name="Viz" type="Node3D" parent="FauxCam"]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="FauxCam/Viz"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+height = 0.2
+
+[node name="CSGBox3D" type="CSGBox3D" parent="FauxCam/Viz"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, 0.1, 0.349248)
+size = Vector3(0.5, 0.2, 0.5)

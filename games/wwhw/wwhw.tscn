@@ -1,15 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://do8builet2hfk"]
+[gd_scene load_steps=8 format=3 uid="uid://do8builet2hfk"]
 
 [ext_resource type="Script" uid="uid://deya7lvle0qsi" path="res://games/wwhw/wwhw.gd" id="1_7d2ao"]
 [ext_resource type="AudioStream" uid="uid://becchlfs4q0n0" path="res://games/wwhw/assets/audio/motorcycle_ambient.ogg" id="2_18wvb"]
 [ext_resource type="Texture2D" uid="uid://bk4ukjnxidrco" path="res://games/wwhw/assets/graphics/wwhw_background.png" id="2_hu542"]
 [ext_resource type="AudioStream" uid="uid://dxum7vnld65h5" path="res://games/wwhw/assets/audio/Juhani Junkala - Level 3.ogg" id="2_kvt37"]
+[ext_resource type="AudioStream" uid="uid://bt5vfa18iyx86" path="res://games/wwhw/assets/audio/explosion.wav" id="4_70pjh"]
 [ext_resource type="PackedScene" uid="uid://ccnxjb54jrawa" path="res://objects/score_box/score_box.tscn" id="5_kvt37"]
+[ext_resource type="Theme" uid="uid://c63vn8pnmi0cl" path="res://objects/score_box/score_box.theme" id="6_t4q5c"]
 
 [node name="wwhw" type="Node2D"]
 script = ExtResource("1_7d2ao")
 music_stream = ExtResource("2_kvt37")
 ambient_stream = ExtResource("2_18wvb")
+explosion_stream = ExtResource("4_70pjh")
 
 [node name="Backdrop" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -75,12 +78,12 @@ unique_name_in_owner = true
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
-anchors_preset = 1
-anchor_left = 1.0
+anchors_preset = 10
 anchor_right = 1.0
-offset_left = -48.0
-offset_bottom = 40.0
-grow_horizontal = 0
+offset_bottom = 21.0
+grow_horizontal = 2
+theme = ExtResource("6_t4q5c")
+theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 16
 
@@ -90,8 +93,41 @@ color = Color(0, 0, 0, 0.235294)
 
 [node name="ScoreBox" parent="UI/MarginContainer" instance=ExtResource("5_kvt37")]
 layout_mode = 2
+size_flags_horizontal = 8
 score_digits = 6
 color_title = Color(0, 0, 0, 1)
 color_value = Color(1, 0.933333, 0, 1)
+
+[node name="MilesAndMultiplier" type="HBoxContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Miles" type="HBoxContainer" parent="UI/MarginContainer/MilesAndMultiplier"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MarginContainer/MilesAndMultiplier/Miles"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67, 0.67, 0.67, 1)
+text = "Miles: "
+
+[node name="LBL_Miles" type="Label" parent="UI/MarginContainer/MilesAndMultiplier/Miles"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.933333, 0, 1)
+text = "000"
+
+[node name="Multiplier" type="HBoxContainer" parent="UI/MarginContainer/MilesAndMultiplier"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MarginContainer/MilesAndMultiplier/Multiplier"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.67, 0.67, 0.67, 1)
+text = "x"
+
+[node name="LBL_Multiplier" type="Label" parent="UI/MarginContainer/MilesAndMultiplier/Multiplier"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.933333, 0, 1)
+text = "1"
 
 [connection signal="score_changed" from="." to="UI/MarginContainer/ScoreBox" method="set_score"]

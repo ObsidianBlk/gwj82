@@ -10,7 +10,7 @@ const BG_SPEED : float = 300.0
 const BG_BOUNDS : Vector2 = Vector2(-136, 152)
 
 const MILES_TO_MULTIPLIER : int = 4
-const SEGS_TO_SCORE : int = 24
+const SEGS_TO_SCORE : int = 48
 const SCORE_DISTANCE : int = 1
 const SCORE_CRASH : int = -5
 
@@ -34,6 +34,7 @@ const HAZARD_RIGHT_SINGLE : StringName = &"HazRightSingle"
 # ------------------------------------------------------------------------------
 @export var music_stream : AudioStream = null
 @export var ambient_stream : AudioStream = null
+@export var explosion_stream : AudioStream = null
 
 # ------------------------------------------------------------------------------
 # Variables
@@ -52,6 +53,9 @@ var _hazards_weighted : WeightedRandomCollection = null
 @onready var _lane_center: Node2D = %LaneCenter
 @onready var _lane_left: Node2D = %LaneLeft
 @onready var _lane_right: Node2D = %LaneRight
+
+@onready var _lbl_miles: Label = %LBL_Miles
+@onready var _lbl_multiplier: Label = %LBL_Multiplier
 
 
 # ------------------------------------------------------------------------------
@@ -118,8 +122,12 @@ func _UpdateSegment() -> void:
 	if _segment > 0 and _segment % SEGS_TO_SCORE == 0:
 		update_score(SCORE_DISTANCE * _multiplier)
 		_miles += 1
+		if _lbl_miles != null:
+			_lbl_miles.text = ("%d"%[_miles]).pad_zeros(3)
 		if _miles > 0 and _miles % MILES_TO_MULTIPLIER == 0:
 			_multiplier += 1
+			if _lbl_multiplier != null:
+				_lbl_multiplier.text = "%d"%[_multiplier]
 
 func _GetPlayerCycle() -> Node2D:
 	var cycle : Node2D = _cycle.get_ref()
@@ -191,8 +199,17 @@ func prepare() -> void:
 # Handler Methods
 # ------------------------------------------------------------------------------
 func _on_cycle_crashed() -> void:
+	if explosion_stream != null:
+		play_sfx.emit(explosion_stream)
 	if active:
 		update_score(SCORE_CRASH)
+		_segment = 0
+		_miles = 0
+		if _lbl_miles != null:
+			_lbl_miles.text = ("%d"%[_miles]).pad_zeros(3)
+		_multiplier = 1
+		if _lbl_multiplier != null:
+			_lbl_multiplier.text = "%d"%[_multiplier]
 	get_tree().create_timer(CYCLE_RESPAWN_DELAY).timeout.connect(
 		_SpawnCycle, CONNECT_ONE_SHOT
 	)

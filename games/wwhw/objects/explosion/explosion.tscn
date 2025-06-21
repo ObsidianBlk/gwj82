@@ -1,0 +1,63 @@
+[gd_scene load_steps=11 format=3 uid="uid://cnpx26kguto13"]
+
+[ext_resource type="Texture2D" uid="uid://cd372hxq7iapf" path="res://games/wwhw/assets/graphics/smoke_01.png" id="1_d6b81"]
+[ext_resource type="Script" uid="uid://db6ebufk54leo" path="res://games/wwhw/objects/explosion/explosion.gd" id="1_ltgmn"]
+[ext_resource type="Texture2D" uid="uid://muxpkky1ng46" path="res://games/wwhw/assets/graphics/wwhw_cycle.png" id="2_re8ew"]
+
+[sub_resource type="Curve" id="Curve_ltgmn"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.1794, 1), 0.0, 0.0, 0, 0, Vector2(0.481604, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_re8ew"]
+curve = SubResource("Curve_ltgmn")
+
+[sub_resource type="Gradient" id="Gradient_o3jxa"]
+offsets = PackedFloat32Array(0.126431, 0.228785, 0.444858, 0.994191)
+colors = PackedColorArray(1, 1, 1, 1, 0.84, 0.82684, 0.4452, 1, 0.64, 0.46304, 0.1344, 1, 0.41, 0.0615, 0.0615, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_82rpn"]
+gradient = SubResource("Gradient_o3jxa")
+
+[sub_resource type="Curve" id="Curve_nbjam"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.806898, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_rebmn"]
+curve = SubResource("Curve_nbjam")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3t6uu"]
+lifetime_randomness = 0.5
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+initial_velocity_min = 16.0
+initial_velocity_max = 64.0
+gravity = Vector3(0, 0, 0)
+damping_max = 10.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_rebmn")
+color_ramp = SubResource("GradientTexture1D_82rpn")
+alpha_curve = SubResource("CurveTexture_re8ew")
+
+[node name="Explosion" type="Node2D"]
+texture_filter = 3
+script = ExtResource("1_ltgmn")
+
+[node name="WwhwCycle" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -3)
+texture = ExtResource("2_re8ew")
+hframes = 2
+
+[node name="Particles" type="GPUParticles2D" parent="."]
+unique_name_in_owner = true
+emitting = false
+amount = 10
+texture = ExtResource("1_d6b81")
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.74
+process_material = SubResource("ParticleProcessMaterial_3t6uu")
+
+[connection signal="finished" from="Particles" to="." method="_on_particles_finished"]

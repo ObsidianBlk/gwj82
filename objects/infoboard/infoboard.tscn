@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfx3pmaapicu"]
+
+[ext_resource type="PackedScene" uid="uid://bkbhufyaroqo5" path="res://objects/infoboard/info_board_display/info_board_display.tscn" id="1_1wory"]
+[ext_resource type="PackedScene" uid="uid://d88g6vtv7jgc" path="res://assets/models/furniture/infoboard.glb" id="1_r8hs0"]
+[ext_resource type="Material" uid="uid://b3n4hbuv2pgh0" path="res://assets/models/furniture/materials/tables_chairs_railing.material" id="2_lmwpi"]
+[ext_resource type="PackedScene" uid="uid://diytu8uurvnwb" path="res://objects/infoboard/infoboard_button/infoboard_button.tscn" id="3_lmwpi"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lmwpi"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Infoboard" type="Node3D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(498, 654)
+
+[node name="InfoBoardDisplay" parent="SubViewport" instance=ExtResource("1_1wory")]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.759386, 0.160718)
+pixel_size = 0.002
+texture = SubResource("ViewportTexture_lmwpi")
+
+[node name="infoboard" parent="." instance=ExtResource("1_r8hs0")]
+
+[node name="InfoBoard" parent="infoboard" index="0"]
+surface_material_override/0 = ExtResource("2_lmwpi")
+
+[node name="Button_Jam" parent="." instance=ExtResource("3_lmwpi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.587813, 0.893212, 0.171923)
+
+[node name="Button_Info" parent="." instance=ExtResource("3_lmwpi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.587813, 0.754728, 0.171923)
+
+[node name="Button_NextScreen" parent="." instance=ExtResource("3_lmwpi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.587813, 0.623473, 0.171923)
+
+[editable path="infoboard"]

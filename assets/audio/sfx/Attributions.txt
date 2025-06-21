@@ -6,3 +6,10 @@ URL: https://freesound.org/people/OwennewO/sounds/524109/
 License: CC0
 
 
+Title: INSTAX CAMERA - Button clicks
+File: soft_click.wav
+Author: Headphaze
+URL: https://freesound.org/people/Headphaze/sounds/696754/
+License: CC0
+Modified: Extracted a single click from the original wav file.
+
