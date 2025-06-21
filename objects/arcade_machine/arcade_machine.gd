@@ -278,16 +278,24 @@ func update_display(intensity : int) -> void:
 	intensity = clampi(intensity, 0, 3)
 	match intensity:
 		0:
+			if _asp_static != null:
+				_asp_static.stop()
 			_display.max_static = 0.0
 			_display.scary_screen = -1
 		1:
+			if _asp_static != null:
+				_asp_static.play()
 			_display.max_static = 0.5
 			_display.scary_screen = -1
 		2:
+			if _asp_static != null:
+				_asp_static.play()
 			_display.max_static = 0.8
 			_display.min_static = 0.3
 			_display.scary_screen = -1
 		3:
+			if _asp_static != null:
+				_asp_static.play()
 			_display.max_static = 1.0
 			_display.min_static = 0.35
 			_display.scary_screen = randi_range(0, 1)
@@ -305,6 +313,7 @@ func _on_component_interactable_unfocused() -> void:
 	pass
 
 func _on_component_interactable_interacted(payload: Dictionary) -> void:
+	if _game == null: return
 	var cam : ChaseCamera3D = _GetSceneCamera()
 	if cam != null:
 		if not cam.flow_completed.is_connected(_on_camera_flow_completed):

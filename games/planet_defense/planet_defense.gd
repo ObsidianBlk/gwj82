@@ -20,6 +20,11 @@ const GAME_WIDTH : Vector2 = Vector2(-160, 160)
 const GAME_HEIGHT : Vector2 = Vector2(-120, 120)
 
 # ------------------------------------------------------------------------------
+# Export Variables
+# ------------------------------------------------------------------------------
+@export var music : AudioStream = null
+
+# ------------------------------------------------------------------------------
 # Variables
 # ------------------------------------------------------------------------------
 var _inv_spawn_delay : float = INV_SPAWN_DELAY
@@ -75,6 +80,7 @@ func _SpawnInvader() -> void:
 	if _GetInvaderCount() < _inv_allowed:
 		var invader : Node2D = INVADER_SCENE.instantiate()
 		invader.scored.connect(_on_scored)
+		invader.sfx.connect(_on_sfx)
 		_inv_container.add_child(invader)
 
 func _GetCannon(spawn_if_not_exist : bool = false) -> Node2D:
@@ -82,6 +88,7 @@ func _GetCannon(spawn_if_not_exist : bool = false) -> Node2D:
 	if cannon == null and spawn_if_not_exist and _cannon_container != null:
 		cannon = CANNON_SCENE.instantiate()
 		cannon.hit.connect(_on_cannon_hit)
+		cannon.sfx.connect(_on_sfx)
 		cannon.position = Vector2(0.0, GAME_HEIGHT.y - 32)
 		_cannon = weakref(cannon)
 		_cannon_container.add_child(cannon)
@@ -93,8 +100,19 @@ func _Reset() -> void:
 	_GetCannon(true)
 
 # ------------------------------------------------------------------------------
+# Public Methods
+# ------------------------------------------------------------------------------
+func prepare() -> void:
+	if music != null:
+		play_music.emit(music)
+
+# ------------------------------------------------------------------------------
 # Handler Methods
 # ------------------------------------------------------------------------------
+func _on_sfx(stream : AudioStream) -> void:
+	if stream != null:
+		play_sfx.emit(stream)
+
 func _on_scored() -> void:
 	_inv_score += 1
 	if active:

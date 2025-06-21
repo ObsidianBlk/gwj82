@@ -1,11 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dn17r67gehegp"]
+[gd_scene load_steps=6 format=3 uid="uid://dn17r67gehegp"]
 
 [ext_resource type="Script" uid="uid://dfw36uxjob8w7" path="res://games/planet_defense/objects/pd_cannon/pd_cannon.gd" id="1_a7bnv"]
 [ext_resource type="Texture2D" uid="uid://d4i3xbvo0k215" path="res://games/planet_defense/assets/graphics/pd_cannon.png" id="1_medo7"]
 [ext_resource type="Script" uid="uid://dmuelv2hwxkd3" path="res://games/planet_defense/scripts/nodes/pd_hit_area.gd" id="2_a7bnv"]
+[ext_resource type="AudioStream" uid="uid://cqw8wnc165kiw" path="res://games/planet_defense/assets/audio/sfx/cannon_shot.wav" id="2_fy45a"]
+[ext_resource type="AudioStream" uid="uid://cxqfq65tcll7i" path="res://games/planet_defense/assets/audio/sfx/cannon_explosion.wav" id="3_d5sde"]
 
 [node name="PDCannon" type="Node2D"]
 script = ExtResource("1_a7bnv")
+sfx_shot = ExtResource("2_fy45a")
+sfx_explode = ExtResource("3_d5sde")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3

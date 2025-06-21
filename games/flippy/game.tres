@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="GameTag" load_steps=2 format=3 uid="uid://cgplygffqfjhk"]
+[gd_resource type="Resource" script_class="GameTag" load_steps=3 format=3 uid="uid://cgplygffqfjhk"]
 
+[ext_resource type="Texture2D" uid="uid://cbtjhouhpdajv" path="res://games/flippy/assets/banner.png" id="1_gsff6"]
 [ext_resource type="Script" uid="uid://dolxdho43feu8" path="res://scripts/resources/game_tag.gd" id="1_r5ced"]
 
 [resource]
 script = ExtResource("1_r5ced")
 game_name = &"Flippy Da Bird"
 game_path = "uid://ddm0sqado87ub"
+score_board_banner = ExtResource("1_gsff6")
 metadata/_custom_type_script = "uid://dolxdho43feu8"

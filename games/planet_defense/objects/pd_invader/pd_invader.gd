@@ -4,6 +4,7 @@ extends Node2D
 # Signals
 # ------------------------------------------------------------------------------
 signal scored()
+signal sfx(stream : AudioStream)
 
 # ------------------------------------------------------------------------------
 # Constants
@@ -23,6 +24,12 @@ const SIZE : Vector2i = Vector2i(16, 8)
 const PPS : float = 60.0
 
 const HOVER_DELAY : float = 0.5
+
+# ------------------------------------------------------------------------------
+# Export Variables
+# ------------------------------------------------------------------------------
+@export var sfx_shot : AudioStream = null
+@export var sfx_explode : AudioStream = null
 
 # ------------------------------------------------------------------------------
 # Variables
@@ -84,6 +91,8 @@ func _TweenTo() -> void:
 func _Shoot() -> void:
 	var parent : Node = get_parent()
 	if parent is Node2D:
+		if sfx_shot != null:
+			sfx.emit(sfx_shot)
 		var lz : Node2D = LAZER_SCENE.instantiate()
 		lz.position = position + Vector2(0.0, -3.0)
 		parent.add_child(lz)
@@ -91,6 +100,8 @@ func _Shoot() -> void:
 func _Explode() -> void:
 	var parent : Node = get_parent()
 	if parent is Node2D:
+		if sfx_explode != null:
+			sfx.emit(sfx_explode)
 		var exp : Node2D = EXPLOSION_SCENE.instantiate()
 		exp.position = position
 		parent.add_child(exp)

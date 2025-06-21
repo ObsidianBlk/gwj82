@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://vjh5u3dk23mp"]
+[gd_scene load_steps=7 format=3 uid="uid://vjh5u3dk23mp"]
 
 [ext_resource type="Texture2D" uid="uid://bj3dsujm1xvji" path="res://games/planet_defense/assets/graphics/invader.png" id="1_f4pj6"]
 [ext_resource type="Script" uid="uid://bo0s84nj1wps3" path="res://games/planet_defense/objects/pd_invader/pd_invader.gd" id="1_jnpm0"]
 [ext_resource type="Script" uid="uid://dmuelv2hwxkd3" path="res://games/planet_defense/scripts/nodes/pd_hit_area.gd" id="2_12172"]
+[ext_resource type="AudioStream" uid="uid://rhcluriymhat" path="res://games/planet_defense/assets/audio/sfx/invader_shot.wav" id="2_cpwq5"]
+[ext_resource type="AudioStream" uid="uid://bwoy4nlapr6cu" path="res://games/planet_defense/assets/audio/sfx/invader_explosion.wav" id="3_on4s6"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_12172"]
 radius = 3.0
@@ -10,6 +12,8 @@ height = 16.0
 
 [node name="PDInvader" type="Node2D"]
 script = ExtResource("1_jnpm0")
+sfx_shot = ExtResource("2_cpwq5")
+sfx_explode = ExtResource("3_on4s6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3

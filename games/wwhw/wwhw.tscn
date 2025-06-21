@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://do8builet2hfk"]
+[gd_scene load_steps=6 format=3 uid="uid://do8builet2hfk"]
 
 [ext_resource type="Script" uid="uid://deya7lvle0qsi" path="res://games/wwhw/wwhw.gd" id="1_7d2ao"]
 [ext_resource type="AudioStream" uid="uid://becchlfs4q0n0" path="res://games/wwhw/assets/audio/motorcycle_ambient.ogg" id="2_18wvb"]
 [ext_resource type="Texture2D" uid="uid://bk4ukjnxidrco" path="res://games/wwhw/assets/graphics/wwhw_background.png" id="2_hu542"]
+[ext_resource type="AudioStream" uid="uid://dxum7vnld65h5" path="res://games/wwhw/assets/audio/Juhani Junkala - Level 3.ogg" id="2_kvt37"]
 [ext_resource type="PackedScene" uid="uid://dntbuby15c5jw" path="res://games/wwhw/cycle/cycle.tscn" id="3_ung8d"]
 
 [node name="wwhw" type="Node2D"]
 script = ExtResource("1_7d2ao")
+music_stream = ExtResource("2_kvt37")
 ambient_stream = ExtResource("2_18wvb")
 
 [node name="Backdrop" type="Node2D" parent="."]

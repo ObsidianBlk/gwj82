@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbi45fpr8uv2g"]
+
+[ext_resource type="PackedScene" uid="uid://db5xn7a0cqetw" path="res://assets/models/office/desk.glb" id="1_mg600"]
+[ext_resource type="Material" uid="uid://bc2vvufxf5kuo" path="res://assets/models/office/materials/office.material" id="2_f7uxc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rdgl5"]
+size = Vector3(1.99756, 1.07349, 1)
+
+[node name="Desk" type="StaticBody3D"]
+
+[node name="desk" parent="." instance=ExtResource("1_mg600")]
+
+[node name="Desk" parent="desk" index="0"]
+surface_material_override/0 = ExtResource("2_f7uxc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000732422, 0.5448, 0)
+shape = SubResource("BoxShape3D_rdgl5")
+
+[editable path="desk"]

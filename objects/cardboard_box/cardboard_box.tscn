@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqhw370re3lyj"]
+
+[ext_resource type="PackedScene" uid="uid://cyw0egnlp8lrt" path="res://assets/models/box/box.glb" id="1_df0g2"]
+[ext_resource type="Material" uid="uid://cuia47k88gknd" path="res://assets/models/box/material/box.material" id="2_ignob"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_loumt"]
+size = Vector3(0.527222, 0.615784, 0.639282)
+
+[node name="CardboardBox" type="StaticBody3D"]
+
+[node name="box" parent="." instance=ExtResource("1_df0g2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.305, 0)
+
+[node name="Box" parent="box" index="0"]
+surface_material_override/0 = ExtResource("2_ignob")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00738525, 0.300629, -0.00604248)
+shape = SubResource("BoxShape3D_loumt")
+
+[editable path="box"]

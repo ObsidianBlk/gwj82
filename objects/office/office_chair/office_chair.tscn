@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bkgi3u4fumua8"]
+
+[ext_resource type="PackedScene" uid="uid://c6pqnhimym4aa" path="res://assets/models/office/office_chair.glb" id="1_b12d5"]
+[ext_resource type="Material" uid="uid://bc2vvufxf5kuo" path="res://assets/models/office/materials/office.material" id="2_fahbh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b12d5"]
+size = Vector3(0.567322, 1.34647, 0.724236)
+
+[node name="OfficeChair" type="StaticBody3D"]
+
+[node name="office_chair" parent="." instance=ExtResource("1_b12d5")]
+
+[node name="Chair_Office" parent="office_chair" index="0"]
+surface_material_override/0 = ExtResource("2_fahbh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00430298, 0.649155, -0.0542488)
+shape = SubResource("BoxShape3D_b12d5")
+
+[editable path="office_chair"]

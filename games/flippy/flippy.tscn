@@ -1,14 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddm0sqado87ub"]
+[gd_scene load_steps=8 format=3 uid="uid://ddm0sqado87ub"]
 
 [ext_resource type="Script" uid="uid://cvnslfvp3iyew" path="res://games/flippy/flippy.gd" id="1_5h87t"]
+[ext_resource type="AudioStream" uid="uid://b41k61a1sxxqh" path="res://games/flippy/assets/audio/music/delayed_chips.ogg" id="2_8eva7"]
 [ext_resource type="PackedScene" uid="uid://nv28d87ceem0" path="res://games/flippy/objects/bird/bird.tscn" id="2_q7lk2"]
 [ext_resource type="PackedScene" uid="uid://ccnxjb54jrawa" path="res://objects/score_box/score_box.tscn" id="3_6gktk"]
+[ext_resource type="AudioStream" uid="uid://b2pd0u5c2wrbk" path="res://games/flippy/assets/audio/sfx/crash.wav" id="3_46ln4"]
+[ext_resource type="AudioStream" uid="uid://boarnka3blkfe" path="res://games/flippy/assets/audio/sfx/score.wav" id="4_kqlr5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f1o5u"]
 size = Vector2(320, 240)
 
 [node name="Flippy" type="Node2D"]
 script = ExtResource("1_5h87t")
+music = ExtResource("2_8eva7")
+sfx_crash = ExtResource("3_46ln4")
+sfx_score = ExtResource("4_kqlr5")
 
 [node name="Bird" parent="." instance=ExtResource("2_q7lk2")]
 unique_name_in_owner = true

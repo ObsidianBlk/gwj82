@@ -20,6 +20,9 @@ const BIRD_RESET_X : float = -120.0
 # Export Variables
 # ------------------------------------------------------------------------------
 @export var spawn_delay : float = 2.0
+@export var music : AudioStream = null
+@export var sfx_crash : AudioStream = null
+@export var sfx_score : AudioStream = null
 
 
 # ------------------------------------------------------------------------------
@@ -78,15 +81,26 @@ func _Reset() -> void:
 	_resetting = false
 
 # ------------------------------------------------------------------------------
+# Public Methods
+# ------------------------------------------------------------------------------
+func prepare() -> void:
+	if music != null:
+		play_music.emit(music)
+
+# ------------------------------------------------------------------------------
 # Handler Methods
 # ------------------------------------------------------------------------------
 func _on_bird_scored() -> void:
 	if active:
 		update_score(BIRD_SCORED_AMOUNT)
+	if sfx_score != null:
+		play_sfx.emit(sfx_score)
 
 func _on_bird_crashed() -> void:
 	if active:
 		update_score(-BIRD_CRASHED_AMOUNT)
+	if sfx_score != null:
+		play_sfx.emit(sfx_crash)
 	_Reset()
 
 func _on_game_region_body_exited(body: Node2D) -> void:

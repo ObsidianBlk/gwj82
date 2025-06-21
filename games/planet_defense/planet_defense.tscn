@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dklwbd4ubdcch"]
+[gd_scene load_steps=5 format=3 uid="uid://dklwbd4ubdcch"]
 
 [ext_resource type="Script" uid="uid://dinfjxsxw3coo" path="res://games/planet_defense/planet_defense.gd" id="1_fj78d"]
 [ext_resource type="Texture2D" uid="uid://btj467hfk28sp" path="res://games/planet_defense/assets/graphics/background.png" id="1_m7sbg"]
+[ext_resource type="AudioStream" uid="uid://ctccon86qor4s" path="res://games/planet_defense/assets/audio/music/heavens_forbid.ogg" id="2_uqmvj"]
 [ext_resource type="PackedScene" uid="uid://ccnxjb54jrawa" path="res://objects/score_box/score_box.tscn" id="3_2plt7"]
 
 [node name="PlanetDefense" type="Node2D"]
 script = ExtResource("1_fj78d")
+music = ExtResource("2_uqmvj")
 
 [node name="Background" type="Sprite2D" parent="."]
 texture = ExtResource("1_m7sbg")
