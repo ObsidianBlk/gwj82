@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://becchlfs4q0n0" path="res://games/wwhw/assets/audio/motorcycle_ambient.ogg" id="2_18wvb"]
 [ext_resource type="Texture2D" uid="uid://bk4ukjnxidrco" path="res://games/wwhw/assets/graphics/wwhw_background.png" id="2_hu542"]
 [ext_resource type="AudioStream" uid="uid://dxum7vnld65h5" path="res://games/wwhw/assets/audio/Juhani Junkala - Level 3.ogg" id="2_kvt37"]
-[ext_resource type="PackedScene" uid="uid://dntbuby15c5jw" path="res://games/wwhw/cycle/cycle.tscn" id="3_ung8d"]
+[ext_resource type="PackedScene" uid="uid://ccnxjb54jrawa" path="res://objects/score_box/score_box.tscn" id="5_kvt37"]
 
 [node name="wwhw" type="Node2D"]
 script = ExtResource("1_7d2ao")
@@ -61,9 +61,6 @@ offset = Vector2(0, -16)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Cycle" parent="." instance=ExtResource("3_ung8d")]
-position = Vector2(0, 60)
-
 [node name="LaneLeft" type="Node2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(-95, 0)
@@ -74,3 +71,27 @@ position = Vector2(95, 0)
 
 [node name="LaneCenter" type="Node2D" parent="."]
 unique_name_in_owner = true
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+
+[node name="ColorRect" type="ColorRect" parent="UI/MarginContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.235294)
+
+[node name="ScoreBox" parent="UI/MarginContainer" instance=ExtResource("5_kvt37")]
+layout_mode = 2
+score_digits = 6
+color_title = Color(0, 0, 0, 1)
+color_value = Color(1, 0.933333, 0, 1)
+
+[connection signal="score_changed" from="." to="UI/MarginContainer/ScoreBox" method="set_score"]

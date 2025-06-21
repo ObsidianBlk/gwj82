@@ -16,7 +16,7 @@ const RIDER_LEFT : int = 1
 const RIDER_CENTER : int = 0
 const RIDER_RIGHT : int = 2
 
-const SPEED : float = 160.0
+const SPEED : float = 260.0
 
 const BOUNCE_DELAY : float = 0.4
 
@@ -101,6 +101,7 @@ func _Die() -> void:
 # Public Methods
 # ------------------------------------------------------------------------------
 func move_left() -> void:
+	if _tween != null: return
 	_lane_idx -= 1
 	if _lane_idx < 0:
 		_lane_idx = 0
@@ -109,12 +110,18 @@ func move_left() -> void:
 		_TweenTo(LANES[_lane_idx])
 
 func move_right() -> void:
+	if _tween != null: return
 	_lane_idx += 1
 	if _lane_idx >= LANES.size():
 		_lane_idx = LANES.size() - 1
 		_TweenBounce(BOUNDS.y)
 	else:
 		_TweenTo(LANES[_lane_idx])
+
+func set_lane(lane_idx : int) -> void:
+	if lane_idx >= 0 and lane_idx < LANES.size():
+		_lane_idx = lane_idx
+		position.x = LANES[_lane_idx]
 
 # ------------------------------------------------------------------------------
 # Handler Methods

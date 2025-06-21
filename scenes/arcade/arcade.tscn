@@ -112,22 +112,22 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.4821
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.45627, 0.5, -0.0797473)
 
 [node name="Stool" parent="NavRegion/Platform/TableRound" instance=ExtResource("8_borfp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.886303, 0, 1.16699)
+transform = Transform3D(-0.850563, 0, 0.525873, 0, 1, 0, -0.525873, 0, -0.850563, 0.886303, 0, 1.16699)
 
 [node name="Stool2" parent="NavRegion/Platform/TableRound" instance=ExtResource("8_borfp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1441, 0, -0.901919)
+transform = Transform3D(-0.399629, 0, -0.916677, 0, 1, 0, 0.916677, 0, -0.399629, 1.1441, 0, -0.901919)
 
 [node name="TableRound2" parent="NavRegion/Platform" instance=ExtResource("7_w2cc3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.16172, 0.5, 0.87577)
 
 [node name="Stool" parent="NavRegion/Platform/TableRound2" instance=ExtResource("8_borfp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40714, 0, 0)
+transform = Transform3D(0.969982, 0, 0.243175, 0, 1, 0, -0.243175, 0, 0.969982, -1.40714, 0, 0)
 
 [node name="Stool2" parent="NavRegion/Platform/TableRound2" instance=ExtResource("8_borfp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0153556, 0, 1.59464)
+transform = Transform3D(-0.357602, 0, 0.933874, 0, 1, 0, -0.933874, 0, -0.357602, -0.0153556, 0, 1.59464)
 
 [node name="Stool3" parent="NavRegion/Platform/TableRound2" instance=ExtResource("8_borfp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0153556, 0, -1.65585)
+transform = Transform3D(0.31323, 0, -0.949677, 0, 1, 0, 0.949677, 0, 0.31323, -0.0153556, 0, -1.65585)
 
 [node name="MachineSet" type="Node3D" parent="NavRegion"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 9.59763, 0, 1.67768)

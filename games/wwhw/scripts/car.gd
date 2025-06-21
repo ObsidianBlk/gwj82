@@ -10,7 +10,7 @@ const BOUNDS : Vector2 = Vector2(-120, 120)
 # ------------------------------------------------------------------------------
 # Export Variables
 # ------------------------------------------------------------------------------
-@export var speed : float = 100.0
+@export var speed : float = 160.0
 @export var height : float = 0.0
 
 
