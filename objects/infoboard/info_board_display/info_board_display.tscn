@@ -1,8 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://bkbhufyaroqo5"]
+[gd_scene load_steps=4 format=3 uid="uid://bkbhufyaroqo5"]
 
 [ext_resource type="Texture2D" uid="uid://b82qc300u4ddr" path="res://assets/graphics/JamPoster.png" id="1_ggbn8"]
+[ext_resource type="Texture2D" uid="uid://blc51bqsp8j8g" path="res://assets/graphics/ArcadePoster.png" id="1_n3dhh"]
+[ext_resource type="Script" uid="uid://bjub0hokboi1k" path="res://objects/infoboard/info_board_display/info_board_display.gd" id="1_qkhhn"]
 
 [node name="InfoBoardDisplay" type="CanvasLayer"]
+script = ExtResource("1_qkhhn")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -13,21 +16,36 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="MainContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="Screen_Arcade" type="TextureRect" parent="MainContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture = ExtResource("1_n3dhh")
+
 [node name="Screen_Jam" type="TextureRect" parent="MainContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 texture = ExtResource("1_ggbn8")
 
-[node name="Screen_Info" type="VBoxContainer" parent="MainContainer"]
+[node name="Screen_Info" type="MarginContainer" parent="MainContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
-[node name="Label" type="Label" parent="MainContainer/Screen_Info"]
+[node name="Layout" type="VBoxContainer" parent="MainContainer/Screen_Info"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainContainer/Screen_Info/Layout"]
 layout_mode = 2
 text = "This could be some really cool info... eventually!!"

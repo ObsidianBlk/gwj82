@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dfx3pmaapicu"]
+[gd_scene load_steps=7 format=3 uid="uid://dfx3pmaapicu"]
 
 [ext_resource type="PackedScene" uid="uid://bkbhufyaroqo5" path="res://objects/infoboard/info_board_display/info_board_display.tscn" id="1_1wory"]
 [ext_resource type="PackedScene" uid="uid://d88g6vtv7jgc" path="res://assets/models/furniture/infoboard.glb" id="1_r8hs0"]
+[ext_resource type="Script" uid="uid://d0dlm6rrv1rbv" path="res://objects/infoboard/infoboard.gd" id="1_sch0q"]
 [ext_resource type="Material" uid="uid://b3n4hbuv2pgh0" path="res://assets/models/furniture/materials/tables_chairs_railing.material" id="2_lmwpi"]
 [ext_resource type="PackedScene" uid="uid://diytu8uurvnwb" path="res://objects/infoboard/infoboard_button/infoboard_button.tscn" id="3_lmwpi"]
 
@@ -9,11 +10,13 @@
 viewport_path = NodePath("SubViewport")
 
 [node name="Infoboard" type="Node3D"]
+script = ExtResource("1_sch0q")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 size = Vector2i(498, 654)
 
 [node name="InfoBoardDisplay" parent="SubViewport" instance=ExtResource("1_1wory")]
+unique_name_in_owner = true
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.759386, 0.160718)
@@ -33,5 +36,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.587813, 0.754728, 0.171923)
 
 [node name="Button_NextScreen" parent="." instance=ExtResource("3_lmwpi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.587813, 0.623473, 0.171923)
+
+[connection signal="clicked" from="Button_Jam" to="." method="_on_button_jam_clicked"]
+[connection signal="clicked" from="Button_Info" to="." method="_on_button_info_clicked"]
+[connection signal="clicked" from="Button_NextScreen" to="." method="_on_button_next_screen_clicked"]
 
 [editable path="infoboard"]
