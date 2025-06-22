@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dascnufgyhbwx"
 path.s3tc="res://.godot/imported/Texture_Walls_Normal.jpg-59d484c3315a072fdab2e15af6ab6a0a.s3tc.ctex"
+path.etc2="res://.godot/imported/Texture_Walls_Normal.jpg-59d484c3315a072fdab2e15af6ab6a0a.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/models/arcade_room/materials/Texture_Walls_Normal.jpg"
-dest_files=["res://.godot/imported/Texture_Walls_Normal.jpg-59d484c3315a072fdab2e15af6ab6a0a.s3tc.ctex"]
+dest_files=["res://.godot/imported/Texture_Walls_Normal.jpg-59d484c3315a072fdab2e15af6ab6a0a.s3tc.ctex", "res://.godot/imported/Texture_Walls_Normal.jpg-59d484c3315a072fdab2e15af6ab6a0a.etc2.ctex"]
 
 [params]
 

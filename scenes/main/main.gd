@@ -8,6 +8,8 @@ const GROUP_ARCADE_MACHINE : StringName = &"ArcadeMachine"
 const ACTIVE_GAME_SPM : float = 2.0
 const NORMAL_CLOCK_SPM : float = 60.0
 
+const LONG_PRESS_DELAY : float = 3.0
+
 # ------------------------------------------------------------------------------
 # Export Variables
 # ------------------------------------------------------------------------------
@@ -21,7 +23,7 @@ const NORMAL_CLOCK_SPM : float = 60.0
 # Variables
 # ------------------------------------------------------------------------------
 var _challenge_running : bool = false
-
+var _long_press : float = 0.0
 
 # ------------------------------------------------------------------------------
 # Onready Variables
@@ -50,8 +52,17 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		if _player != null:
-			_player.active = not _player.active
+		_long_press = LONG_PRESS_DELAY
+	elif event.is_action_released("ui_cancel"):
+		_long_press = 0.0
+		#if _player != null:
+		#	_player.active = not _player.active
+
+func _process(delta: float) -> void:
+	if _long_press > 0.0:
+		_long_press -= delta
+		if _long_press <= 0.0:
+			get_tree().quit()
 
 # ------------------------------------------------------------------------------
 # Private Methods

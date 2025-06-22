@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmicjlm56vow0"
 path.s3tc="res://.godot/imported/Texture_Table_Chair_Railing.jpg-47c0fd981b4973f9cf4699a431646bf2.s3tc.ctex"
+path.etc2="res://.godot/imported/Texture_Table_Chair_Railing.jpg-47c0fd981b4973f9cf4699a431646bf2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/models/furniture/materials/Texture_Table_Chair_Railing.jpg"
-dest_files=["res://.godot/imported/Texture_Table_Chair_Railing.jpg-47c0fd981b4973f9cf4699a431646bf2.s3tc.ctex"]
+dest_files=["res://.godot/imported/Texture_Table_Chair_Railing.jpg-47c0fd981b4973f9cf4699a431646bf2.s3tc.ctex", "res://.godot/imported/Texture_Table_Chair_Railing.jpg-47c0fd981b4973f9cf4699a431646bf2.etc2.ctex"]
 
 [params]
 

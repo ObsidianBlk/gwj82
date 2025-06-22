@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c426s1dcd7hgj"
 path.s3tc="res://.godot/imported/Arcade_Cabinet_Normal.jpg-ccf1c3464ea35448b0a099ec159b0623.s3tc.ctex"
+path.etc2="res://.godot/imported/Arcade_Cabinet_Normal.jpg-ccf1c3464ea35448b0a099ec159b0623.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/models/arcade_machine/Arcade_Cabinet_Normal.jpg"
-dest_files=["res://.godot/imported/Arcade_Cabinet_Normal.jpg-ccf1c3464ea35448b0a099ec159b0623.s3tc.ctex"]
+dest_files=["res://.godot/imported/Arcade_Cabinet_Normal.jpg-ccf1c3464ea35448b0a099ec159b0623.s3tc.ctex", "res://.godot/imported/Arcade_Cabinet_Normal.jpg-ccf1c3464ea35448b0a099ec159b0623.etc2.ctex"]
 
 [params]
 

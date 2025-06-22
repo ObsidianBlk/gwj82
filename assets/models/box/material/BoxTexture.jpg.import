@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://u08ywyh1jssf"
 path.s3tc="res://.godot/imported/BoxTexture.jpg-db1f03dd99ea99e6e33d19ac48aa1584.s3tc.ctex"
+path.etc2="res://.godot/imported/BoxTexture.jpg-db1f03dd99ea99e6e33d19ac48aa1584.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/models/box/material/BoxTexture.jpg"
-dest_files=["res://.godot/imported/BoxTexture.jpg-db1f03dd99ea99e6e33d19ac48aa1584.s3tc.ctex"]
+dest_files=["res://.godot/imported/BoxTexture.jpg-db1f03dd99ea99e6e33d19ac48aa1584.s3tc.ctex", "res://.godot/imported/BoxTexture.jpg-db1f03dd99ea99e6e33d19ac48aa1584.etc2.ctex"]
 
 [params]
 

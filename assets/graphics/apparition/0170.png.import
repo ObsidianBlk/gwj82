@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dib2quj03k02n"
 path.s3tc="res://.godot/imported/0170.png-d4022f1722259578b6b9022d93981521.s3tc.ctex"
+path.etc2="res://.godot/imported/0170.png-d4022f1722259578b6b9022d93981521.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/graphics/apparition/0170.png"
-dest_files=["res://.godot/imported/0170.png-d4022f1722259578b6b9022d93981521.s3tc.ctex"]
+dest_files=["res://.godot/imported/0170.png-d4022f1722259578b6b9022d93981521.s3tc.ctex", "res://.godot/imported/0170.png-d4022f1722259578b6b9022d93981521.etc2.ctex"]
 
 [params]
 

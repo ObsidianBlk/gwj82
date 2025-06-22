@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c6f3a6bmw2f0a"
 path.s3tc="res://.godot/imported/CarpetTexture_Normal.jpg-46b4cfaa57b14f8bce772b913c3eb133.s3tc.ctex"
+path.etc2="res://.godot/imported/CarpetTexture_Normal.jpg-46b4cfaa57b14f8bce772b913c3eb133.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/models/arcade_room/materials/CarpetTexture_Normal.jpg"
-dest_files=["res://.godot/imported/CarpetTexture_Normal.jpg-46b4cfaa57b14f8bce772b913c3eb133.s3tc.ctex"]
+dest_files=["res://.godot/imported/CarpetTexture_Normal.jpg-46b4cfaa57b14f8bce772b913c3eb133.s3tc.ctex", "res://.godot/imported/CarpetTexture_Normal.jpg-46b4cfaa57b14f8bce772b913c3eb133.etc2.ctex"]
 
 [params]
 
