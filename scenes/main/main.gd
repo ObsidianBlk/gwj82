@@ -27,6 +27,8 @@ var _challenge_running : bool = false
 # Onready Variables
 # ------------------------------------------------------------------------------
 @onready var _player: CharacterBody3D = %Player
+@onready var _asp_end_challenge_siren: AudioStreamPlayer = %ASP_EndChallengeSiren
+@onready var _asp_start_challenge_sound: AudioStreamPlayer = %ASP_StartChallengeSound
 
 
 # ------------------------------------------------------------------------------
@@ -103,6 +105,7 @@ func _PrepareArcade(start_challenge : bool = false) -> void:
 		_challenge_running = true
 		Clock24.set_seconds_per_minute(ACTIVE_GAME_SPM)
 		Clock24.reset(start_hour, start_minute)
+		_asp_start_challenge_sound.play()
 		var app : Apparition = Apparition.Get_Instance()
 		if app != null:
 			app.set_action(Apparition.ACTION_APPARATE)
@@ -136,15 +139,15 @@ func _UpdateAudioFocus(machine_focus : bool) -> void:
 		_TweenAudioBusVolume(&"ArcadeSFX", 1.0, 0.25)
 
 func _GetGradeFromScore(score : int) -> String:
-	if score >= 1000:
+	if score >= 400:
 		return "S"
-	elif score >= 800:
-		return "A"
-	elif score >= 600:
-		return "B"
-	elif score >= 400:
-		return "C"
 	elif score >= 200:
+		return "A"
+	elif score >= 140:
+		return "B"
+	elif score >= 80:
+		return "C"
+	elif score >= 40:
 		return "D"
 	return "F"
 
@@ -182,6 +185,8 @@ func _on_challenged(initials : String) -> void:
 func _on_clock_ticked(hour : int, minute : int) -> void:
 	if _challenge_running and hour == end_hour and minute == end_minute:
 		_challenge_running = false
+		if _asp_end_challenge_siren != null:
+			_asp_end_challenge_siren.play()
 		var app : Apparition = Apparition.Get_Instance()
 		if app != null:
 			app.enabled = false

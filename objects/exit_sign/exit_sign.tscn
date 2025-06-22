@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://dn81tprnpruaf"]
+
+[ext_resource type="PackedScene" uid="uid://b3agwjascr4pm" path="res://assets/models/furniture/digital_wall_clock.glb" id="1_k4t3e"]
+[ext_resource type="Material" uid="uid://b3n4hbuv2pgh0" path="res://assets/models/furniture/materials/tables_chairs_railing.material" id="2_vu14l"]
+[ext_resource type="FontFile" uid="uid://bky84ipfqhane" path="res://assets/fonts/Unispace Rg.otf" id="3_vu14l"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_bh2ei"]
+viewport_path = NodePath("SubViewport")
+
+[node name="ExitSign" type="Node3D"]
+
+[node name="digital_wall_clock" parent="." instance=ExtResource("1_k4t3e")]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+
+[node name="DigitalWallClock" parent="digital_wall_clock" index="0"]
+surface_material_override/0 = ExtResource("2_vu14l")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.78867e-09, 0, -0.0318987)
+transparent = false
+double_sided = false
+texture = SubResource("ViewportTexture_bh2ei")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(72, 36)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11, 0.033, 0, 1)
+
+[node name="Label" type="Label" parent="SubViewport/CanvasLayer"]
+texture_filter = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.54, 0.54, 1)
+theme_override_fonts/font = ExtResource("3_vu14l")
+theme_override_font_sizes/font_size = 24
+text = "EXIT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[editable path="digital_wall_clock"]

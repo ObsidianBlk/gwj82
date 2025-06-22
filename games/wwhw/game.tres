@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="GameTag" load_steps=2 format=3 uid="uid://b3fyf1tiqgv27"]
+[gd_resource type="Resource" script_class="GameTag" load_steps=3 format=3 uid="uid://b3fyf1tiqgv27"]
 
 [ext_resource type="Script" uid="uid://dolxdho43feu8" path="res://scripts/resources/game_tag.gd" id="1_1ugyb"]
+[ext_resource type="Texture2D" uid="uid://dws1caewqd6aj" path="res://games/wwhw/assets/banner.png" id="1_pqtdx"]
 
 [resource]
 script = ExtResource("1_1ugyb")
 game_name = &"Wrong Way Highway"
 game_path = "uid://do8builet2hfk"
+score_board_banner = ExtResource("1_pqtdx")
 metadata/_custom_type_script = "uid://dolxdho43feu8"

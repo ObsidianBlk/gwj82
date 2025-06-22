@@ -320,6 +320,9 @@ func _on_component_interactable_interacted(payload: Dictionary) -> void:
 			cam.flow_completed.connect(_on_camera_flow_completed.bind(cam), CONNECT_ONE_SHOT)
 		cam.flow_to(_game_camera_target_group)
 		focused.emit(true)
+		var ad : ActiveDisplay = ActiveDisplay.Get_Instance()
+		if ad != null:
+			ad.display_screen(ActiveDisplay.DISPLAY_SCOREBOARD)
 		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 func _on_camera_flow_completed(camera : ChaseCamera3D) -> void:

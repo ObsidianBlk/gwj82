@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b2f3n64r86m32"]
+[gd_scene load_steps=30 format=3 uid="uid://b2f3n64r86m32"]
 
 [ext_resource type="PackedScene" uid="uid://bemb41gwajlmm" path="res://objects/arcade_room/arcade_room.tscn" id="1_5rcsk"]
 [ext_resource type="Script" uid="uid://bp6g2m0mep6g4" path="res://scenes/arcade/arcade.gd" id="1_5x3yn"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bdm43bq6jhr6s" path="res://objects/furniture/ceiling_light/ceiling_light.tscn" id="17_60f0b"]
 [ext_resource type="PackedScene" uid="uid://d2ka8h3lcp55d" path="res://objects/challenge_box/challenge_box.tscn" id="17_jddkn"]
 [ext_resource type="PackedScene" uid="uid://cbi45fpr8uv2g" path="res://objects/office/desk/desk.tscn" id="18_4fm1b"]
+[ext_resource type="PackedScene" uid="uid://dn81tprnpruaf" path="res://objects/exit_sign/exit_sign.tscn" id="18_qnm4c"]
 [ext_resource type="AudioStream" uid="uid://c4g5knciq4qqc" path="res://assets/audio/music/Cyberpunk Moonlight Sonata v2.ogg" id="19_ac8qg"]
 [ext_resource type="PackedScene" uid="uid://bkgi3u4fumua8" path="res://objects/office/office_chair/office_chair.tscn" id="19_hgbgy"]
 [ext_resource type="PackedScene" uid="uid://cqhw370re3lyj" path="res://objects/cardboard_box/cardboard_box.tscn" id="20_qnm4c"]
@@ -243,6 +244,12 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2.2
 
 [node name="ChallengeBox" parent="Misc" instance=ExtResource("17_jddkn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.359144, 1.40458, -6.2144)
+
+[node name="ExitSign" parent="Misc" instance=ExtResource("18_qnm4c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.978512, 3.55931, 7.91981)
+
+[node name="ExitSign2" parent="Misc" instance=ExtResource("18_qnm4c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.879363, 3.55931, 7.91981)
 
 [node name="Office" type="Node3D" parent="."]
 

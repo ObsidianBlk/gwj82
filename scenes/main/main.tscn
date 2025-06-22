@@ -1,16 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddlcxn2ckkyjf"]
+[gd_scene load_steps=8 format=3 uid="uid://ddlcxn2ckkyjf"]
 
 [ext_resource type="PackedScene" uid="uid://dmbfypogpt676" path="res://objects/player/player.tscn" id="1_hyk8p"]
 [ext_resource type="Script" uid="uid://cowixnabh7364" path="res://scenes/main/main.gd" id="1_k2fmo"]
 [ext_resource type="PackedScene" uid="uid://b2f3n64r86m32" path="res://scenes/arcade/arcade.tscn" id="2_6q06x"]
 [ext_resource type="Script" uid="uid://n3fxpg2pwuig" path="res://scripts/nodes/chase_camera_3D.gd" id="2_iuonh"]
+[ext_resource type="AudioStream" uid="uid://dshawmcjies3w" path="res://assets/audio/sfx/511597__robpnicholson__dirty-siren.wav" id="5_6q06x"]
+[ext_resource type="AudioStream" uid="uid://binyvba2tbh34" path="res://assets/audio/sfx/197790__madmatibian__getreadyselfmadesoundsong.wav" id="6_ow5a4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_l3cfh"]
 size = Vector3(3.93243, 1.74304, 2.31488)
 
 [node name="Main" type="Node"]
 script = ExtResource("1_k2fmo")
-end_hour = 1
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -31,5 +32,15 @@ metadata/_custom_type_script = "uid://n3fxpg2pwuig"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/ExitArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0124207, 0.371521, 9.64053)
 shape = SubResource("BoxShape3D_l3cfh")
+
+[node name="ASP_EndChallengeSiren" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("5_6q06x")
+bus = &"ArcadeSFX"
+
+[node name="ASP_StartChallengeSound" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_ow5a4")
+bus = &"ArcadeSFX"
 
 [connection signal="body_entered" from="Environment/ExitArea" to="." method="_on_exit_area_body_entered"]

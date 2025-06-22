@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cv8telumvb3io"]
+[gd_scene load_steps=35 format=3 uid="uid://cv8telumvb3io"]
 
 [ext_resource type="Script" uid="uid://day6fmn1mo1yf" path="res://objects/apparition/apparition.gd" id="1_gvsc7"]
 [ext_resource type="Texture2D" uid="uid://depvdf22nuou" path="res://assets/graphics/apparition/0146.png" id="1_pruh4"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://du0yvffxft3aj" path="res://assets/graphics/apparition/0250.png" id="27_tejf6"]
 [ext_resource type="Script" uid="uid://bomsu3mtbgxx8" path="res://scripts/nodes/light_detector.gd" id="29_sqr1e"]
 [ext_resource type="Script" uid="uid://d0xin571l5ik6" path="res://scripts/nodes/score_drainer.gd" id="29_u2u1b"]
+[ext_resource type="AudioStream" uid="uid://u70oyekrjrr1" path="res://assets/audio/sfx/mumble.ogg" id="31_vdp0m"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4foeq"]
 animations = [{
@@ -158,5 +159,12 @@ shape = SubResource("CylinderShape3D_gvsc7")
 
 [node name="NavAgent" type="NavigationAgent3D" parent="."]
 unique_name_in_owner = true
+
+[node name="ASP_Mumble" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.48219, 0)
+stream = ExtResource("31_vdp0m")
+attenuation_model = 1
+max_distance = 5.0
 
 [connection signal="target_reached" from="NavAgent" to="." method="_on_nav_agent_target_reached"]

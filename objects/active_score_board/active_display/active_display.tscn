@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dijjmmbihi3dl"]
+[gd_scene load_steps=4 format=3 uid="uid://dijjmmbihi3dl"]
 
 [ext_resource type="Script" uid="uid://cuch8wpqvupp1" path="res://objects/active_score_board/active_display/active_display.gd" id="1_b5cya"]
 [ext_resource type="FontFile" uid="uid://bona4bnoq8vdk" path="res://assets/fonts/JVNE Wopper'83.ttf" id="2_4l0h7"]
+[ext_resource type="FontFile" uid="uid://3frqkjuwyk0j" path="res://assets/fonts/Unispace Bd.otf" id="2_d8fpf"]
 
 [node name="ActiveDisplay" type="MarginContainer"]
 anchors_preset = 15
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_top = 0
 script = ExtResource("1_b5cya")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -19,7 +21,9 @@ color = Color(0, 0, 0, 1)
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 24
 
 [node name="VBC" type="VBoxContainer" parent="Scoreboard"]
@@ -37,11 +41,13 @@ layout_mode = 2
 [node name="Label" type="Label" parent="Scoreboard/VBC/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("2_d8fpf")
 theme_override_font_sizes/font_size = 64
-text = "Hello you DWEEB!"
+text = "\\/\\/ CHALLENGE \\/\\/"
 
 [node name="FinalGrade" type="MarginContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/margin_top = 24
 

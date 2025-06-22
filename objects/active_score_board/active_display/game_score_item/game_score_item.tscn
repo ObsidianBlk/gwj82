@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://d2l2vrlfvux3a" path="res://objects/active_score_board/active_display/game_score_item/game_score_item.gd" id="1_ef8xu"]
 
-[node name="GameScoreItem" type="HBoxContainer"]
-custom_minimum_size = Vector2(500, 143)
+[node name="GameScoreItem" type="MarginContainer"]
+custom_minimum_size = Vector2(480, 143)
 offset_right = 500.0
 offset_bottom = 143.0
 size_flags_horizontal = 0
@@ -34,7 +34,8 @@ text_overrun_behavior = 4
 unique_name_in_owner = true
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
-size_flags_vertical = 1
+size_flags_horizontal = 0
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "000000"
 horizontal_alignment = 1

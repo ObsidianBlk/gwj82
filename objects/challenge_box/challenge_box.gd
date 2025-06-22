@@ -24,6 +24,7 @@ var _locked : bool = false
 @onready var _letter_box_01: Node3D = %LetterBox_01
 @onready var _letter_box_02: Node3D = %LetterBox_02
 @onready var _letter_box_03: Node3D = %LetterBox_03
+@onready var _asp_click: AudioStreamPlayer3D = %ASP_Click
 
 
 # ------------------------------------------------------------------------------
@@ -51,6 +52,8 @@ func _UpdateInitials() -> void:
 	]
 
 func _Clicked() -> void:
+	if _asp_click != null:
+		_asp_click.play()
 	Relay.challenge(_initials)
 	_locked = true
 

@@ -56,6 +56,7 @@ static var _instance : Apparition = null
 @onready var _ghost: AnimatedSprite3D = %Ghost
 @onready var _score_drainer: ScoreDrainer = %ScoreDrainer
 @onready var _nav_agent: NavigationAgent3D = %NavAgent
+@onready var _asp_mumble: AudioStreamPlayer3D = %ASP_Mumble
 
 # ------------------------------------------------------------------------------
 # Setters
@@ -88,6 +89,11 @@ func _exit_tree() -> void:
 func _process(delta: float) -> void:
 	if _action != ACTION_APPARATE:
 		_UpdateGhostVis()
+	if _asp_mumble != null:
+		if not enabled and _asp_mumble.playing:
+			_asp_mumble.stop()
+		elif enabled and not _asp_mumble.playing:
+			_asp_mumble.play()
 	
 	if not enabled: return
 	match _action:

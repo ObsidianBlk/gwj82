@@ -18,7 +18,7 @@ const MAX_FLICKER_VALUE : float = 100000000
 @export_range(0.0, 16.0) var emission_energy : float = 1.0:		set=set_emission_energy
 @export_range(0.0, 1.0) var max_volume : float = 1.0:			set=set_max_volume
 @export_range(0.0, 1.0) var max_flicker_intensity : float = 0.0
-@export var enable_flicker : bool = false
+@export var enable_flicker : bool = false:						set=set_enable_flicker
 
 # ------------------------------------------------------------------------------
 # Variables

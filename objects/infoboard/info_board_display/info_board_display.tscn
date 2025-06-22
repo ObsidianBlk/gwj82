@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkbhufyaroqo5"]
+[gd_scene load_steps=5 format=3 uid="uid://bkbhufyaroqo5"]
 
 [ext_resource type="Texture2D" uid="uid://b82qc300u4ddr" path="res://assets/graphics/JamPoster.png" id="1_ggbn8"]
 [ext_resource type="Texture2D" uid="uid://blc51bqsp8j8g" path="res://assets/graphics/ArcadePoster.png" id="1_n3dhh"]
 [ext_resource type="Script" uid="uid://bjub0hokboi1k" path="res://objects/infoboard/info_board_display/info_board_display.gd" id="1_qkhhn"]
+[ext_resource type="Theme" uid="uid://cue7p2pcyp62k" path="res://objects/infoboard/info_board_display/info_board_display.theme" id="3_p33c4"]
 
 [node name="InfoBoardDisplay" type="CanvasLayer"]
 script = ExtResource("1_qkhhn")
@@ -29,15 +30,11 @@ visible = false
 layout_mode = 2
 texture = ExtResource("1_n3dhh")
 
-[node name="Screen_Jam" type="TextureRect" parent="MainContainer"]
+[node name="Screen_Info" type="MarginContainer" parent="MainContainer"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-texture = ExtResource("1_ggbn8")
-
-[node name="Screen_Info" type="MarginContainer" parent="MainContainer"]
-unique_name_in_owner = true
-layout_mode = 2
+theme = ExtResource("3_p33c4")
 theme_override_constants/margin_left = 12
 theme_override_constants/margin_top = 12
 theme_override_constants/margin_right = 12
@@ -46,6 +43,80 @@ theme_override_constants/margin_bottom = 12
 [node name="Layout" type="VBoxContainer" parent="MainContainer/Screen_Info"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainContainer/Screen_Info/Layout"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MainContainer/Screen_Info/Layout"]
+texture_filter = 3
 layout_mode = 2
-text = "This could be some really cool info... eventually!!"
+bbcode_enabled = true
+text = "[center]Welcome, ONE AND ALL, to
+[font=res://assets/fonts/Quantum.otf][font_size=30][color=#cbdbfc]The[/color] [color=#ff7ada]Hidden[/color] [color=#fbf236]Oasis[/color][/font_size][/font][/center]
+
+A world of fun and excitement awaits in the latest and greatest in gaming entertainment! Visit the machines! Get a high score! [font_size=8]Ignore the ghost![/font_size]
+
+When in the [color=#cbdbfc][font=res://assets/fonts/Quantum.otf][font_size=22]Arcade[/font_size][/font][/color]...
+[font_size=14][table=4]
+[cell padding=2,2,8,2 bg=#004400]Action Desc.[/cell][cell padding=2,2,12,2 bg=#004400]Keyboard[/cell][cell padding=2,2,12,2 bg=#004400]Joypad[/cell][cell padding=2,2,12,2 bg=#004400]Mouse[/cell]
+[cell padding=2,2,8,2]Move[/cell]
+[cell padding=2,2,8,2][color=#FFAA99](W)(A)(S)(D)[/color][/cell]
+[cell padding=2,2,8,2][color=#AA99FF]L-Stick[/color][/cell]
+[cell padding=2,2,8,2][color=#AAFF99]-[/color][/cell]
+
+[cell padding=2,2,8,2]Look[/cell]
+[cell padding=2,2,8,2][color=#FFAA99]-[/color][/cell]
+[cell padding=2,2,8,2][color=#AA99FF]R-Stick[/color][/cell]
+[cell padding=2,2,8,2][color=#AAFF99]Motion[/color][/cell]
+
+[cell padding=2,2,8,2]Interact[/cell]
+[cell padding=2,2,8,2][color=#FFAA99](E)[/color][/cell]
+[cell padding=2,2,8,2][color=#AA99FF](A)[/color][/cell]
+[cell padding=2,2,8,2][color=#AAFF99]LMB[/color][/cell]
+[/table][/font_size]
+
+[b][color=yellow]NOTE:[/color][/b] If an item glows while you look at it, you can interact with it! Also, interacting with Arcade Machine screens will allow you to play the game!
+
+When playing on the machines...
+[font_size=14][table=3]
+[cell padding=2,2,8,2 bg=#004400]Action Desc.[/cell][cell padding=2,2,12,2 bg=#004400]Keyboard[/cell][cell padding=2,2,12,2 bg=#004400]Joypad[/cell]
+[cell padding=2,2,8,2]Move[/cell]
+[cell padding=2,2,8,2][color=#FFAA99](W)(A)(S)(D)[/color][/cell]
+[cell padding=2,2,8,2][color=#AA99FF]L-Stick / DPad[/color][/cell]
+
+[cell padding=2,2,8,2]Perf. Action[/cell]
+[cell padding=2,2,8,2][color=#FFAA99](Space)[/color][/cell]
+[cell padding=2,2,8,2][color=#AA99FF](A)[/color][/cell]
+
+[cell padding=2,2,8,2]Exit Machine[/cell]
+[cell padding=2,2,8,2][color=#FFAA99](Q)[/color][/cell]
+[cell padding=2,2,8,2][color=#AA99FF](Back/Options)[/color][/cell]
+[/table][/font_size]"
+fit_content = true
+
+[node name="Screen_Info2" type="MarginContainer" parent="MainContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_p33c4")
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Layout" type="VBoxContainer" parent="MainContainer/Screen_Info2"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainContainer/Screen_Info2/Layout"]
+texture_filter = 3
+layout_mode = 2
+bbcode_enabled = true
+text = "[center][font=res://assets/fonts/Quantum.otf][font_size=30][color=#FF0000]DON'T FORGET THE CHALLENGE[/color][/font_size][/font][/center]
+
+For those wishing to challenge your skills, at the main window, you will find the [color=#b65f7b]Challenge[/color] button! By entering your initials and pressing the button, clocks will reset to [color=#860ee9]Midnight[/color] and, until [color=#860ee9]Six AM[/color], you must raise the scores on all available arcade games as high as you can!
+
+[color=#b65f7b]BUT BEWARE[/color] some gamers claim an [b][i]UNSEEN[/i][/b] presence comes out during these challenges and randomly drains the scores out of the machines... [b]HOW VILE![/b]
+
+Once the clock strikes [color=#860ee9]Six AM[/color], the challenge ends and our judges [i](they're there, you don't need to see them)[/i] will grade you on the score board for all to see!"
+fit_content = true
+
+[node name="Screen_Jam" type="TextureRect" parent="MainContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+texture = ExtResource("1_ggbn8")

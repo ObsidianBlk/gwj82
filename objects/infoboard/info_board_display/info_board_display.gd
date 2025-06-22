@@ -17,8 +17,9 @@ var _switch_delay : float = AUTO_SWITCH_DELAY
 @onready var _main_container: MarginContainer = %MainContainer
 @onready var _screens : Array[Control] = [
 	%Screen_Arcade,
-	%Screen_Jam,
 	%Screen_Info,
+	%Screen_Info2,
+	%Screen_Jam,
 ]
 
 # ------------------------------------------------------------------------------
@@ -67,3 +68,6 @@ func switch_to(idx : int) -> void:
 		_screen_idx = idx
 		_screens[_screen_idx].visible = true
 	_switch_delay = AUTO_SWITCH_DELAY
+
+func get_screen_index() -> int:
+	return _screen_idx
